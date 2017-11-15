@@ -7,4 +7,34 @@
     <string name="title_activity_home">Fingerprint</string>
     <string name="activity_home_desc">You have successfully logged in with fingerprint authentication</string>
     <string name="activity_home_note">Close and re-open the app to see the fingerprint auth screen again</string>
+
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="forget">Forget Password</string>
+    <string name="register">Register</string>
+    <string name="reset">Reset</string>
+
+    //register page
+    <string name="rUsername">Username : </string>
+    <string name="rGender">Gender : </string>
+    <string name="rEmail">Email : </string>
+    <string name="rPassword">Password : </string>
+    <string name="rCfPassword">Confirm Password : </string>
+    <string name="rFingerP">Fingerprint : </string>
+    <string name="email">Email</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="next">Next</string>
+    <string name="scanFP">Please scan your fingerprint for confirmation.</string>
+    <string name="scanQR">Please scan the target account QR Code for transaction.</string>
+    <string name="camera">Open Camera</string>
+    <string name="transaction">Transaction</string>
+    <string name="tAmount">Amount :</string>
+    <string name="Amount">Amount</string>
+    <string name="account">Do not have an account?</string>
+    <string name="QRcode">Please scan QR code for quick transaction</string>
+    <string name="title_activity_main2">Transaction Master</string>
+    <string name="register_confirm">Registration Confirmation</string>
+    <string name="confirm">Confirm</string>
 </resources>
