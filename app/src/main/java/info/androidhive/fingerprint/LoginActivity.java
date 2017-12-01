@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void testTransact(View v){
         Intent intent;
-        intent = new Intent(this, Transaction1Activity1.class);
+        intent = new Intent(this, Transaction2Activity.class);
         startActivity(intent);
     }
 

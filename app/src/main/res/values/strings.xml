@@ -14,6 +14,7 @@
     <string name="forget">Forget Password</string>
     <string name="register">Register</string>
     <string name="reset">Reset</string>
+    <string name="Scan">Scan</string>
 
     //register page
     <string name="rUsername">Username : </string>
@@ -43,7 +44,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="title_activity_home2">HomeActivity2</string>
-    <string name="title_activity_transaction11">Transaction1Activity1</string>
-    <string name="title_activity_transaction21">Transaction2Activity1</string>
+    <string name="title_activity_home2">Home</string>
+    <string name="title_activity_transaction11">Scan QR Code</string>
+    <string name="title_activity_transaction21">Transaction</string>
 </resources>
