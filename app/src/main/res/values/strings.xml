@@ -47,4 +47,5 @@
     <string name="title_activity_home2">Home</string>
     <string name="title_activity_transaction11">Scan QR Code</string>
     <string name="title_activity_transaction21">Transaction</string>
+    <string name="Fingerprint">Fingerprint</string>
 </resources>

@@ -40,6 +40,10 @@ public class Transaction2Activity extends AppCompatActivity {
         Intent intent = new Intent(this, Transaction1Activity.class);
         startActivityForResult(intent, REQUEST_QRCODE);
     }
+    public void fingerPrints(View v){
+        Intent intent = new Intent(this, FingerprintActivity.class);
+        startActivityForResult(intent, REQUEST_QRCODE);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
