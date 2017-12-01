@@ -29,6 +29,11 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void testTransact(View v){
+        Intent intent;
+        intent = new Intent(this, Transaction1Activity1.class);
+        startActivity(intent);
+    }
 
 
     @Override

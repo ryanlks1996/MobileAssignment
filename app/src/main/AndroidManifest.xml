@@ -3,6 +3,8 @@
     package="info.androidhive.fingerprint">
 
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:allowBackup="true"
@@ -29,6 +31,9 @@
             android:name=".Transaction2Activity1"
             android:label="@string/title_activity_transaction21"
             android:theme="@style/AppTheme"></activity>
+
+        <meta-data android:name="com.google.android.gms.vision.DEPENDENCIES" android:value="barcode"/>
+
     </application>
 
 </manifest>
