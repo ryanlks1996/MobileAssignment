@@ -21,6 +21,14 @@
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Transaction1Activity1"
+            android:label="@string/title_activity_transaction11"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Transaction2Activity1"
+            android:label="@string/title_activity_transaction21"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

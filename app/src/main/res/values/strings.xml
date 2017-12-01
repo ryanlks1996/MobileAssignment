@@ -43,4 +43,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="title_activity_home2">HomeActivity2</string>
+    <string name="title_activity_transaction11">Transaction1Activity1</string>
+    <string name="title_activity_transaction21">Transaction2Activity1</string>
 </resources>
