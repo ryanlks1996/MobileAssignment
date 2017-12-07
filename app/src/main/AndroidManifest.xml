@@ -3,8 +3,8 @@
     package="info.androidhive.fingerprint">
 
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -20,28 +20,30 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HomeActivity"
-            android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme" />
-        <activity
             android:name=".Transaction1Activity"
             android:label="@string/title_activity_transaction11"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".Transaction2Activity"
             android:label="@string/title_activity_transaction21"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Register1Activity"
             android:label="Register Account"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".FingerprintActivity"
             android:label="Scan Fingerprint"
+            android:theme="@style/AppTheme" />
+
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="barcode" />
+
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/title_activity_home1"
             android:theme="@style/AppTheme"></activity>
-
-        <meta-data android:name="com.google.android.gms.vision.DEPENDENCIES" android:value="barcode"/>
-
     </application>
 
 </manifest>

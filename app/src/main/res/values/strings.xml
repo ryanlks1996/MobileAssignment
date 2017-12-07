@@ -23,6 +23,7 @@
     <string name="rPassword">Password : </string>
     <string name="rCfPassword">Confirm Password : </string>
     <string name="rFingerP">Fingerprint : </string>
+
     <string name="email">Email</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
@@ -31,6 +32,7 @@
     <string name="scanQR">Please scan the target account QR Code for transaction.</string>
     <string name="camera">Open Camera</string>
     <string name="transaction">Transaction</string>
+    <string name="transfer">Transfer</string>
     <string name="tAmount">Amount :</string>
     <string name="Amount">Amount</string>
     <string name="account">Do not have an account?</string>
@@ -48,4 +50,15 @@
     <string name="title_activity_transaction11">Scan QR Code</string>
     <string name="title_activity_transaction21">Transaction</string>
     <string name="Fingerprint">Fingerprint</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_home1">Home1Activity</string>
+    <string name="receive">Receive</string>
+    <string name="qr_message">Show this QR Code to the sender for transaction.</string>
+    <string name="returns">Return</string>
+    <string name="navigation_menu_title">Navigation</string>
+    <string name="nav_menu_about">About</string>
+    <string name="logout">Logout</string>
+    <string name="qrcodeDescript">Used to scan by sender</string>
 </resources>

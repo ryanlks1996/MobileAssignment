@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/navigation_menu_title">
+        <menu>
+            <item
+                android:id="@+id/nav_Home"
+                android:icon="@drawable/nav_icon_home"
+                android:title="@string/title_activity_home2" />
+            <item
+                android:id="@+id/nav_Transfer"
+                android:icon="@android:drawable/ic_menu_send"
+                android:title="@string/transfer" />
+            <item
+                android:id="@+id/nav_About"
+                android:icon="@android:drawable/ic_menu_help"
+                android:title="@string/nav_menu_about" />
+            <item
+                android:id="@+id/nav_Logout"
+                android:icon="@drawable/nav_icon_logout"
+                android:title="@string/logout" />
+        </menu>
+    </item>
+</menu>
