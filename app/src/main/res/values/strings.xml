@@ -61,4 +61,5 @@
     <string name="nav_menu_about">About</string>
     <string name="logout">Logout</string>
     <string name="qrcodeDescript">Used to scan by sender</string>
+    <string name="title_activity_about">AboutActivity</string>
 </resources>

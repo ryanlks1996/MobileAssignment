@@ -26,7 +26,6 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 import java.io.IOException;
 
 public class Transaction1Activity extends AppCompatActivity {
-    TextView textViewResult;
     SurfaceView cameraPreview;
     BarcodeDetector barcodeDetector;
     CameraSource cameraSource;
@@ -58,7 +57,6 @@ public class Transaction1Activity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        textViewResult = (TextView) findViewById(R.id.textViewTest);
         cameraPreview = (SurfaceView) findViewById(R.id.surfaceViewCamera);
         barcodeDetector = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.QR_CODE)
@@ -107,10 +105,6 @@ public class Transaction1Activity extends AppCompatActivity {
                 final SparseArray<Barcode> qrCodes = detections.getDetectedItems();
                 if(qrCodes.size() != 0)
                 {
-                    //Extracting Values from QRCodes
-                    textViewResult.post(new Runnable() {
-                        @Override
-                        public void run() {
                             //Create Vibrate
                             Vibrator vibrator = (Vibrator)getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
                             vibrator.vibrate(5);
@@ -120,8 +114,6 @@ public class Transaction1Activity extends AppCompatActivity {
                             intent.putExtra(Transaction2Activity.USERNAME,qrCodes.valueAt(0).displayValue);
                             setResult(Transaction2Activity.REQUEST_QRCODE, intent);
                             finish();
-                        }
-                    });
                 }
             }
         });
