@@ -20,20 +20,29 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Transaction1Activity"
+            android:name=".Transaction2Activity"
             android:label="@string/title_activity_transaction11"
+            android:parentActivityName=".Transaction1Activity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".Transaction2Activity"
+            android:name=".Transaction1Activity"
             android:label="@string/title_activity_transaction21"
+            android:parentActivityName=".HomeActivity"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".Register1Activity"
             android:label="Register Account"
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Register2Activity"
+            android:label="Register Confirmation"
+            android:parentActivityName=".Register1Activity"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".FingerprintActivity"
             android:label="Scan Fingerprint"
+            android:parentActivityName=".Transaction1Activity"
             android:theme="@style/AppTheme" />
 
         <meta-data
@@ -47,7 +56,9 @@
         <activity
             android:name=".AboutActivity"
             android:label="@string/title_activity_about"
-            android:theme="@style/AppTheme"></activity>
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Transaction3Activity"></activity>
     </application>
 
 </manifest>

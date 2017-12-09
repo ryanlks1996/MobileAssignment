@@ -2,8 +2,6 @@ package info.androidhive.fingerprint;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,8 +14,6 @@ import android.view.MenuItem;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-    private static final int REQUEST_COMPLETE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +34,7 @@ public class HomeActivity extends AppCompatActivity
 
     public void testTransact(View v){
         Intent intent;
-        intent = new Intent(this, Transaction1Activity.class);
+        intent = new Intent(this, Transaction2Activity.class);
         startActivity(intent);
     }
 
@@ -98,11 +94,10 @@ public class HomeActivity extends AppCompatActivity
         Intent intent;
 
         if (id == R.id.nav_Home) {
-            intent = new Intent(this, HomeActivity.class);
-            startActivity(intent);
+
         } else if (id == R.id.nav_Transfer) {
-            intent = new Intent(this, Transaction2Activity.class);
-            startActivityForResult(intent, REQUEST_COMPLETE);
+            intent = new Intent(this, Transaction1Activity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_About) {
             intent = new Intent(this, AboutActivity.class);
             startActivity(intent);

@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText editTextUs, editTextPassword;
+    private TextView textViewMessage;
     private Intent intent;
 
     @Override
@@ -17,24 +19,29 @@ public class LoginActivity extends AppCompatActivity {
 
         editTextUs = (EditText)findViewById(R.id.editTextUs);
         editTextPassword = (EditText)findViewById(R.id.editTextPassword);
+        textViewMessage = (TextView)findViewById(R.id.textViewMessage);
     }
 
     public void login(View v){
-        intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
+        boolean valid= true;//true for testing phase ONLY
+        String username, password;
+        username = String.valueOf(editTextUs.getText());
+        password = String.valueOf(editTextPassword.getText());
+        //Check record in database
+
+
+        if(valid){
+            intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+        }else{
+            textViewMessage.setText("Invalid username or password.");
+        }
     }
 
     public void register(View v){
         intent = new Intent(this, Register1Activity.class);
         startActivity(intent);
     }
-
-    public void testTransact(View v){
-        Intent intent;
-        intent = new Intent(this, Transaction2Activity.class);
-        startActivity(intent);
-    }
-
 
     @Override
     protected void onPause() {

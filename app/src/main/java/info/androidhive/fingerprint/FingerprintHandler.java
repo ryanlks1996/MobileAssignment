@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.CancellationSignal;
 import android.support.v4.app.ActivityCompat;
+import android.widget.EditText;
 import android.widget.TextView;
 
 /**
@@ -48,7 +49,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     @Override
     public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result) {
         ((Activity) context).finish();
-        Intent intent = new Intent(context, HomeActivity.class);
+        Intent intent = new Intent(context, Transaction1Activity.class);
         context.startActivity(intent);
     }
 
