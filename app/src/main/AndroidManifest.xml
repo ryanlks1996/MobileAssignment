@@ -21,13 +21,8 @@
         </activity>
         <activity
             android:name=".Transaction2Activity"
-            android:label="@string/title_activity_transaction11"
+            android:label="@string/title_activity_transaction2"
             android:parentActivityName=".Transaction1Activity"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".Transaction1Activity"
-            android:label="@string/title_activity_transaction21"
-            android:parentActivityName=".HomeActivity"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".Register1Activity"
@@ -51,14 +46,26 @@
 
         <activity
             android:name=".HomeActivity"
-            android:label="@string/title_activity_home1"
+            android:label="@string/title_activity_home"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".AboutActivity"
             android:label="@string/title_activity_about"
             android:parentActivityName=".HomeActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Transaction3Activity"></activity>
+        <activity
+            android:name=".Transaction3Activity"
+            android:label="@string/title_activity_transaction3"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".HomeActivity"
+            /> **for temporaily only
+        <activity
+            android:name=".Transaction1Activity"
+            android:label="@string/title_activity_transaction1"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".HomeActivity">
+        </activity>
+
     </application>
 
 </manifest>

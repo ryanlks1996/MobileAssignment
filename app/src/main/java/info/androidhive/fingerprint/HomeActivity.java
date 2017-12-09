@@ -32,13 +32,14 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    public void testTransact(View v){
+    public void Transfer(View v){
         Intent intent;
-        intent = new Intent(this, Transaction2Activity.class);
+        intent = new Intent(this, Transaction1Activity.class);
         startActivity(intent);
     }
 
     public void showQR(View v){
+        //Show QR from database
         /*
         //define fragment to replace
         Fragment showQRFragment = new ShowQRFragment();

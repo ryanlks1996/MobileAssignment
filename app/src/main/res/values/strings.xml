@@ -1,19 +1,5 @@
 <resources>
-    <string name="app_name">Transaction Master</string>
-    <string name="title_fingerprint">One-touch Transfer</string>
-    <string name="desc_fingerprint">Please place your fingertip on the scanner to verify your identity</string>
-    <string name="note">(Your device should have at least one fingerprint registered in device settings)</string>
-    <string name="title_activity_home">Fingerprint</string>
-    <string name="activity_home_desc">You have successfully logged in with fingerprint authentication</string>
-    <string name="activity_home_note">Close and re-open the app to see the fingerprint auth screen again</string>
 
-    <string name="login">Login</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
-    <string name="forget">Forget Password</string>
-    <string name="register">Register</string>
-    <string name="reset">Reset</string>
-    <string name="Scan">Scan</string>
 
     //register page
     <string name="rUsername">Username : </string>
@@ -22,41 +8,51 @@
     <string name="rPassword">Password : </string>
     <string name="rCfPassword">Confirm Password : </string>
     <string name="rFingerP">Fingerprint : </string>
-
+    <string name="tAmount">Amount :</string>
     <string name="email">Email</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
+
     <string name="next">Next</string>
-    <string name="scanFP">Please scan your fingerprint for confirmation.</string>
-    <string name="scanQR">Please scan the target account QR Code for transaction.</string>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="forget">Forget Password</string>
+    <string name="register">Register</string>
+    <string name="reset">Reset</string>
+    <string name="Scan">Scan</string>
     <string name="camera">Open Camera</string>
-    <string name="transaction">Transaction</string>
     <string name="transfer">Transfer</string>
-    <string name="tAmount">Amount :</string>
-    <string name="Amount">Amount</string>
-    <string name="account">Do not have an account?</string>
-    <string name="title_activity_main2">Transaction Master</string>
-    <string name="register_confirm">Registration Confirmation</string>
     <string name="confirm">Confirm</string>
-    <string name="title_activity_abc">Abc</string>
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_home2">Home</string>
-    <string name="title_activity_transaction11">Scan QR Code</string>
-    <string name="title_activity_transaction21">Transaction</string>
-    <string name="Fingerprint">Fingerprint</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="title_activity_home1">Home</string>
     <string name="receive">Receive</string>
-    <string name="qr_message">Show this QR Code to the sender for transaction.</string>
     <string name="returns">Return</string>
-    <string name="navigation_menu_title">Navigation</string>
+
+    <string name="transaction">Transaction</string>
+    <string name="Amount">Amount</string>
+    <string name="Fingerprint">Fingerprint</string>
     <string name="nav_menu_about">About</string>
     <string name="logout">Logout</string>
     <string name="qrcodeDescript">Used to scan by sender</string>
-    <string name="title_activity_about">AboutActivity</string>
+    <string name="qr_message">Show this QR Code to the sender for transaction.</string>
+    <string name="account">Do not have an account?</string>
+    <string name="register_confirm">Registration Confirmation</string>
+    <string name="scanFP">Please scan your fingerprint for confirmation.</string>
+    <string name="scanQR">Please scan the target account QR Code for transaction.</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+    <string name="desc_fingerprint">Please place your fingertip on the scanner to verify your identity</string>
+    <string name="note">(Your device should have at least one fingerprint registered in device settings)</string>
+    <string name="activity_home_desc">You have successfully logged in with fingerprint authentication</string>
+    <string name="activity_home_note">Close and re-open the app to see the fingerprint auth screen again</string>
+
+    <string name="app_name">Transaction Master</string>
+    <string name="title_fingerprint">One-touch Transfer</string>
+    <string name="title_activity_about">About this app</string>
+    <string name="title_activity_home">Home</string>
+    <string name="title_activity_transaction2">Scan QR Code</string>
+    <string name="title_activity_transaction1">Transaction</string>
+    <string name="title_activity_transaction3">Successfully transfered</string>
+    <string name="navigation_menu_title">Navigation</string>
 </resources>
