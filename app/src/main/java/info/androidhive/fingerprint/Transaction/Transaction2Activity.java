@@ -1,4 +1,4 @@
-package info.androidhive.fingerprint;
+package info.androidhive.fingerprint.Transaction;
 
 import android.Manifest;
 import android.content.Context;
@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseArray;
@@ -22,6 +21,8 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
 
+import info.androidhive.fingerprint.R;
+
 public class Transaction2Activity extends AppCompatActivity {
     SurfaceView cameraPreview;
     BarcodeDetector barcodeDetector;
@@ -33,7 +34,7 @@ public class Transaction2Activity extends AppCompatActivity {
         switch (requestCode) {
             case RequestCameraPermissionID: {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    if (android.support.v4.app.ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                         return;
                     }
 
@@ -81,9 +82,9 @@ public class Transaction2Activity extends AppCompatActivity {
         cameraPreview.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(SurfaceHolder surfaceHolder) {
-                if (ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                if (android.support.v4.app.ActivityCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     //Request permission
-                    ActivityCompat.requestPermissions(Transaction2Activity.this,
+                    android.support.v4.app.ActivityCompat.requestPermissions(Transaction2Activity.this,
                             new String[]{Manifest.permission.CAMERA}, RequestCameraPermissionID);
                     return;
                 }

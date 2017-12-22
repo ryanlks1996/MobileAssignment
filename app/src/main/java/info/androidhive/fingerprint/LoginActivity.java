@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import info.androidhive.fingerprint.Register.Register1Activity;
+
 public class LoginActivity extends AppCompatActivity {
     private EditText editTextUs, editTextPassword;
     private TextView textViewMessage;

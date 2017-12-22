@@ -8,8 +8,9 @@ import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.CancellationSignal;
 import android.support.v4.app.ActivityCompat;
-import android.widget.EditText;
 import android.widget.TextView;
+
+import info.androidhive.fingerprint.Transaction.Transaction1Activity;
 
 /**
  * Created by whit3hawks on 11/16/16.

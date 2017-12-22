@@ -20,24 +20,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Transaction2Activity"
+            android:name=".Transaction.Transaction2Activity"
             android:label="@string/title_activity_transaction2"
-            android:parentActivityName=".Transaction1Activity"
+            android:parentActivityName=".Transaction.Transaction1Activity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".Register1Activity"
-            android:label="Register Account"
+            android:name=".Register.Register1Activity"
+            android:label="@string/title_activity_register1"
             android:parentActivityName=".LoginActivity"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".Register2Activity"
-            android:label="Register Confirmation"
-            android:parentActivityName=".Register1Activity"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".FingerprintActivity"
             android:label="Scan Fingerprint"
-            android:parentActivityName=".Transaction1Activity"
+            android:parentActivityName=".Transaction.Transaction1Activity"
             android:theme="@style/AppTheme" />
 
         <meta-data
@@ -54,18 +49,21 @@
             android:parentActivityName=".HomeActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".Transaction3Activity"
+            android:name=".Transaction.Transaction3Activity"
             android:label="@string/title_activity_transaction3"
-            android:theme="@style/AppTheme"
             android:parentActivityName=".HomeActivity"
-            /> **for temporaily only
+            android:theme="@style/AppTheme" />
+        **for temporaily only
         <activity
-            android:name=".Transaction1Activity"
+            android:name=".Transaction.Transaction1Activity"
             android:label="@string/title_activity_transaction1"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".Register.Register2Activity"
+            android:label="@string/title_activity_register2"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".HomeActivity">
-        </activity>
-
+            android:parentActivityName=".Register.Register1Activity"></activity>
     </application>
 
 </manifest>
