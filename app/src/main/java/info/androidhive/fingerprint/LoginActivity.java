@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import info.androidhive.fingerprint.Register.Register1Activity;
+import info.androidhive.fingerprint.Register.Register2Activity;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText editTextUs, editTextPassword;
@@ -41,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void register(View v){
-        intent = new Intent(this, Register1Activity.class);
+        intent = new Intent(this, Register2Activity.class);
         startActivity(intent);
     }
 

@@ -4,26 +4,47 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
+
+import com.google.android.gms.vision.text.Text;
 
 import info.androidhive.fingerprint.R;
 
 public class Register2Activity extends AppCompatActivity {
+    TextView textViewUsername, textViewPassword, textViewGender, textViewEmail;
+    private static final int REQUEST_DETAILS = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register2);
+
+        textViewUsername = (TextView)findViewById(R.id.textViewUsername);
+        textViewEmail = (TextView)findViewById(R.id.textViewEmail);
+        textViewGender = (TextView)findViewById(R.id.textViewGender);
+        textViewPassword = (TextView)findViewById(R.id.textViewPassword);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_DETAILS) {
+            String username, gender, email, password;
 
-        String username, gender, email, password;
+            username = data.getStringExtra(Register1Activity.USERNAME);
+            gender = data.getStringExtra(Register1Activity.GENDER);
+            email = data.getStringExtra(Register1Activity.EMAIL);
+            password = data.getStringExtra(Register1Activity.PASSWORD);
 
-        username = data.getStringExtra("Register1Activity.username");
-        gender = data.getStringExtra("Register1Activity.gender");
-        email = data.getStringExtra("Register1Activity.email");
-        password = data.getStringExtra("Register1Activity.password");
+            textViewUsername.setText(username);
+            textViewGender.setText(gender);
+            textViewEmail.setText(email);
+            textViewPassword.setText(password);
+        }
+    }
+
+    public void edit(){
+        Intent intent = new Intent(this, Register1Activity.class);
+        startActivityForResult(intent,REQUEST_DETAILS);
     }
 }

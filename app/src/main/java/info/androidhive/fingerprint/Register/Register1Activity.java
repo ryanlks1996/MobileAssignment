@@ -12,6 +12,10 @@ import android.widget.Toast;
 import info.androidhive.fingerprint.R;
 
 public class Register1Activity extends AppCompatActivity {
+    protected static final String USERNAME = "Register1Activity.username";
+    protected static final String GENDER = "Register1Activity.gender";
+    protected static final String EMAIL = "Register1Activity.email";
+    protected static final String PASSWORD = "Register1Activity.password";
     private Intent intent;
     private EditText editTextUs, editTextPw, editTextCfPw, editTextEmail;
     private RadioButton radioButtonMale, radioButtonFemale;
@@ -79,10 +83,10 @@ public class Register1Activity extends AppCompatActivity {
         }
         if(valid) {
             intent = new Intent(this, Register2Activity.class);
-            intent.putExtra("Register1Activity.username",username);
-            intent.putExtra("Register1Activity.gender",gender);
-            intent.putExtra("Register1Activity.email",email);
-            intent.putExtra("Register1Activity.password",password);
+            intent.putExtra(USERNAME,username);
+            intent.putExtra(GENDER,gender);
+            intent.putExtra(EMAIL,email);
+            intent.putExtra(PASSWORD,password);
             startActivity(intent);
         }else{
             //Display error message
