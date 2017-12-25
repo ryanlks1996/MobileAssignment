@@ -38,8 +38,19 @@ public class Register1Activity extends AppCompatActivity {
         boolean valid=false;
         String errorMsg="";
         String username="",gender="",email="",password="",confirmPw="";
+        int dbLength = 10;//get database length
 
         username = editTextUs.getText().toString();
+        boolean usernameRepeat = false;
+        /*
+        //check all usernames in database
+        for(int i=0;i<dbLength;i++){
+            if(username.equals()){
+                usernameRepeat=true;
+                break;
+            }
+        }
+        */
         if(username.isEmpty()||username.equals("")){
             errorMsg = "Please enter username.";
         }
@@ -47,18 +58,32 @@ public class Register1Activity extends AppCompatActivity {
             errorMsg = "Username shouldn't contains space(s)";
         }else if(username.length()<8 || username.length()>14){
             errorMsg = "Username length must between 8-14";
+        }else if(usernameRepeat){
+            errorMsg = "This username is already been used.";
         }else {
             if(!(radioButtonMale.isChecked() || radioButtonFemale.isChecked())){
                 //Error, please choose gender
                 errorMsg = "Please choose your gender";
             } else{
                 email = editTextEmail.getText().toString();
+                boolean emailRepeat = false;
+                /*
+                //check all emails in database
+                for(int i=0;i<dbLength;i++){
+                    if(email.equals()){
+                        emailRepeat = true;
+                        break;
+                    }
+                }
+                */
                 if(email.isEmpty() || email.equals("")){
                     errorMsg = "Please enter email.";
                 }else if(email.length() > 25){
                     errorMsg = "Invalid email length. (Too long)";
                 }else if(email.contains(" ")){
                     errorMsg = "Email shouldn't contains space(s)";
+                }else if(emailRepeat){
+                    errorMsg = "This email is already registered.";
                 }else {
                     password = editTextPw.getText().toString();
                     confirmPw = editTextCfPw.getText().toString();
@@ -82,12 +107,13 @@ public class Register1Activity extends AppCompatActivity {
             }
         }
         if(valid) {
-            intent = new Intent(this, Register2Activity.class);
+            intent = new Intent();
             intent.putExtra(USERNAME,username);
             intent.putExtra(GENDER,gender);
             intent.putExtra(EMAIL,email);
             intent.putExtra(PASSWORD,password);
-            startActivity(intent);
+            setResult(Register2Activity.REQUEST_DETAILS,intent);
+            finish();
         }else{
             //Display error message
             Toast toast = new Toast(this);

@@ -4,15 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.vision.text.Text;
 
+import info.androidhive.fingerprint.LoginActivity;
 import info.androidhive.fingerprint.R;
 
 public class Register2Activity extends AppCompatActivity {
     TextView textViewUsername, textViewPassword, textViewGender, textViewEmail;
-    private static final int REQUEST_DETAILS = 5;
+    protected static final int REQUEST_DETAILS = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +46,21 @@ public class Register2Activity extends AppCompatActivity {
         }
     }
 
-    public void edit(){
+    public void edit(View v){
         Intent intent = new Intent(this, Register1Activity.class);
         startActivityForResult(intent,REQUEST_DETAILS);
+    }
+
+    public void next(View v){
+        //insert into database
+
+
+        //display successful message (toast)
+        Toast toast = new Toast(this);
+        toast.makeText(this,"Successfully created account.",Toast.LENGTH_LONG).show();
+
+        //return back to login screen
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 }
