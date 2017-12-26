@@ -1,11 +1,9 @@
 package info.androidhive.fingerprint;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,27 +13,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.ImageView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.android.gms.appdatasearch.GetRecentContextCall;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.List;
 import info.androidhive.fingerprint.Transaction.Transaction1Activity;
 
-public class HomeActivity extends AppCompatActivity
+public class ShowQRActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    ImageView imageViewQRCode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_show_qr);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -47,24 +36,11 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-    }
 
-    public void Transfer(View v){
-        Intent intent = new Intent(this, Transaction1Activity.class);
-        startActivity(intent);
-    }
+        imageViewQRCode = (ImageView)findViewById(R.id.imageViewQRCode);
+        //connect to database and retrieve qrcode based on customerID
 
-    public void showQR(View v){
-        Intent intent = new Intent(this, ShowQRActivity.class);
-        startActivity(intent);
-    }
-
-    private boolean isConnected() {
-        ConnectivityManager cm =
-                (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        //set image uri
 
     }
 
@@ -81,7 +57,7 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
+        getMenuInflater().inflate(R.menu.show_qr, menu);
         return true;
     }
 
@@ -101,9 +77,9 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         Intent intent;
-
         if (id == R.id.nav_Home) {
-
+            intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_Transfer) {
             intent = new Intent(this, Transaction1Activity.class);
             startActivity(intent);
@@ -117,5 +93,9 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void returns(View v){
+        super.onBackPressed();
     }
 }

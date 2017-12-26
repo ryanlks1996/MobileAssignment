@@ -1,7 +1,10 @@
 package info.androidhive.fingerprint.Register;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -31,6 +34,15 @@ public class Register1Activity extends AppCompatActivity {
         editTextEmail = (EditText)findViewById(R.id.editTextEmail);
         radioButtonMale = (RadioButton)findViewById(R.id.radioButtonMale);
         radioButtonFemale = (RadioButton)findViewById(R.id.radioButtonFemale);
+    }
+
+    private boolean isConnected() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+
     }
 
     public void checkDetails(View v){

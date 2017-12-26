@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1.41"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@drawable/logo1" />
+        app:srcCompat="@drawable/logo" />
 
     <TextView
         android:layout_width="match_parent"

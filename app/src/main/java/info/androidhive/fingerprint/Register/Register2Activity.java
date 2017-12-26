@@ -1,6 +1,9 @@
 package info.androidhive.fingerprint.Register;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +29,15 @@ public class Register2Activity extends AppCompatActivity {
         textViewEmail = (TextView)findViewById(R.id.textViewEmail);
         textViewGender = (TextView)findViewById(R.id.textViewGender);
         textViewPassword = (TextView)findViewById(R.id.textViewPassword);
+    }
+
+    private boolean isConnected() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+
     }
 
     @Override

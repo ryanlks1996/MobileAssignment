@@ -59,8 +59,6 @@ public class Transaction2Activity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        // Enter your code here
-
     }
 
     @Override
