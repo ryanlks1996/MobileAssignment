@@ -29,6 +29,10 @@ public class Register2Activity extends AppCompatActivity {
         textViewEmail = (TextView)findViewById(R.id.textViewEmail);
         textViewGender = (TextView)findViewById(R.id.textViewGender);
         textViewPassword = (TextView)findViewById(R.id.textViewPassword);
+
+        if (!isConnected()) {
+            Toast.makeText(getApplicationContext(), "No network", Toast.LENGTH_LONG).show();
+        }
     }
 
     private boolean isConnected() {
@@ -64,15 +68,23 @@ public class Register2Activity extends AppCompatActivity {
     }
 
     public void next(View v){
-        //insert into database
+        if(textViewUsername.getText()==""||
+                textViewGender.getText()==""||
+                textViewPassword.getText()==""||
+                textViewEmail.getText()=="") {
+            Toast toast = new Toast(getApplicationContext());
+            toast.makeText(getApplicationContext(),"Please check if the details are valid.",Toast.LENGTH_SHORT);
+        }else{
+            //insert into database
 
 
-        //display successful message (toast)
-        Toast toast = new Toast(this);
-        toast.makeText(this,"Successfully created account.",Toast.LENGTH_LONG).show();
+            //display successful message (toast)
+            Toast toast = new Toast(this);
+            toast.makeText(this, "Successfully created account.", Toast.LENGTH_LONG).show();
 
-        //return back to login screen
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+            //return back to login screen
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
     }
 }

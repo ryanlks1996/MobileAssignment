@@ -1,11 +1,15 @@
 package info.androidhive.fingerprint;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import info.androidhive.fingerprint.Register.Register1Activity;
 import info.androidhive.fingerprint.Register.Register2Activity;
@@ -23,6 +27,10 @@ public class LoginActivity extends AppCompatActivity {
         editTextUs = (EditText)findViewById(R.id.editTextUs);
         editTextPassword = (EditText)findViewById(R.id.editTextPassword);
         textViewMessage = (TextView)findViewById(R.id.textViewMessage);
+
+        if (!isConnected()) {
+            Toast.makeText(getApplicationContext(), "No network", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void login(View v){
@@ -44,6 +52,15 @@ public class LoginActivity extends AppCompatActivity {
     public void register(View v){
         intent = new Intent(this, Register2Activity.class);
         startActivity(intent);
+    }
+
+    private boolean isConnected() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+
     }
 
     @Override

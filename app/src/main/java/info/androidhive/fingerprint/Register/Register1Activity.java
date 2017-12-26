@@ -34,6 +34,10 @@ public class Register1Activity extends AppCompatActivity {
         editTextEmail = (EditText)findViewById(R.id.editTextEmail);
         radioButtonMale = (RadioButton)findViewById(R.id.radioButtonMale);
         radioButtonFemale = (RadioButton)findViewById(R.id.radioButtonFemale);
+
+        if (!isConnected()) {
+            Toast.makeText(getApplicationContext(), "No network", Toast.LENGTH_LONG).show();
+        }
     }
 
     private boolean isConnected() {

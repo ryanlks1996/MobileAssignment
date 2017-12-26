@@ -1,6 +1,9 @@
 package info.androidhive.fingerprint.Transaction;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -12,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import info.androidhive.fingerprint.AboutActivity;
 import info.androidhive.fingerprint.FingerprintActivity;
@@ -45,6 +49,19 @@ public class Transaction1Activity extends AppCompatActivity
         editTextAmount = (EditText) findViewById(R.id.editTextAmount);
         textViewUsername = (TextView) findViewById(R.id.textViewUser);
         textViewMessage = (TextView) findViewById(R.id.textViewMessage);
+
+        if (!isConnected()) {
+            Toast.makeText(getApplicationContext(), "No network", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private boolean isConnected() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+
     }
 
     public void scanQR(View v){
