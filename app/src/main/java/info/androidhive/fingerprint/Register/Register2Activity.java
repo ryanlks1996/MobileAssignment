@@ -156,7 +156,7 @@ public class Register2Activity extends AppCompatActivity {
                     Map<String, String> params = new HashMap<>();
                     params.put("CustomerID", customer.getCustomerID());;
                     params.put("Name", customer.getName());;
-                    params.put("AccountBalance", customer.getAccountBalance());;
+                    //params.put("AccountBalance", customer.getAccountBalance());;
                     params.put("Gender", customer.getGender());;
                     params.put("Email", customer.getEmail());;
                     params.put("Username", customer.getUsername());;
