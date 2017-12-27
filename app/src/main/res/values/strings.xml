@@ -65,4 +65,6 @@
     <string name="get_transaction_url">https://kongyh-wa15.000webhostapp.com/select_transaction.php</string>
     <string name="insert_transaction_url">https://kongyh-wa15.000webhostapp.com/insert_transaction.php</string>
     <string name="refresh">Refresh</string>
+    <string name="rName">Name</string>
+    <string name="nameR">Name :</string>
 </resources>
