@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:title="@string/navigation_menu_title">
         <menu>
@@ -11,6 +12,10 @@
                 android:id="@+id/nav_Transfer"
                 android:icon="@android:drawable/ic_menu_send"
                 android:title="@string/transfer" />
+            <item
+                android:id="@+id/nav_Topup"
+                android:icon="@drawable/nav_icon_topup"
+                android:title="@string/topup" />
             <item
                 android:id="@+id/nav_About"
                 android:icon="@android:drawable/ic_menu_help"

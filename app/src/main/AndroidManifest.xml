@@ -69,6 +69,10 @@
         <activity
             android:name=".ShowQRActivity"
             android:label="@string/title_activity_show_qr"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".TopupActivity"
+            android:label="@string/title_activity_topup"
             android:theme="@style/AppTheme"></activity>
     </application>
 

@@ -73,7 +73,10 @@ public class AboutActivity extends AppCompatActivity
         } else if (id == R.id.nav_Transfer) {
             intent = new Intent(this, Transaction1Activity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_About) {
+        } else if (id == R.id.nav_Topup){
+            intent = new Intent(this, TopupActivity.class);
+            startActivity(intent);
+        }else if (id == R.id.nav_About) {
 
         } else if (id == R.id.nav_Logout) {
             intent = new Intent(this, LoginActivity.class);

@@ -67,4 +67,7 @@
     <string name="refresh">Refresh</string>
     <string name="rName">Name</string>
     <string name="nameR">Name :</string>
+    <string name="title_activity_topup">TopupActivity</string>
+    <string name="topup">Top Up</string>
+    <string name="account_balance">Account Balance :</string>
 </resources>

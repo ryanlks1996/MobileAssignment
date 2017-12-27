@@ -22,6 +22,7 @@ import info.androidhive.fingerprint.FingerprintActivity;
 import info.androidhive.fingerprint.HomeActivity;
 import info.androidhive.fingerprint.LoginActivity;
 import info.androidhive.fingerprint.R;
+import info.androidhive.fingerprint.TopupActivity;
 
 public class Transaction1Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -112,6 +113,9 @@ public class Transaction1Activity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_Transfer) {
 
+        } else if (id == R.id.nav_Topup){
+            intent = new Intent(this, TopupActivity.class);
+            startActivity(intent);
         }else if (id == R.id.nav_About) {
             intent = new Intent(this, AboutActivity.class);
             startActivity(intent);
