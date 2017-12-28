@@ -50,7 +50,8 @@ public class LoginActivity extends AppCompatActivity {
         editTextUs = (EditText) findViewById(R.id.editTextUs);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         textViewMessage = (TextView) findViewById(R.id.textViewMessage);
-
+        editTextUs.setText(null);
+        editTextPassword.setText(null);
 
 
 
@@ -128,7 +129,7 @@ public class LoginActivity extends AppCompatActivity {
         password = String.valueOf(editTextPassword.getText());
         //Check record in database
         for (int i = 0; i < custList.size(); i++) {
-            if (custList.get(i).getUsername().equalsIgnoreCase(username) && custList.get(i).getPassword().equalsIgnoreCase(password)) {
+            if (custList.get(i).getUsername().equals(username) && custList.get(i).getPassword().equals(password)) {
                 custNo =i;
                 valid = true;
             }else

@@ -55,23 +55,24 @@ public class Register1Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register1);
         //Make connection
-        connMgr = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         networkInfo = connMgr.getActiveNetworkInfo();
         isConnected = networkInfo != null && networkInfo.isConnectedOrConnecting();
         custList = new ArrayList<>();
 
-        editTextName = (EditText)findViewById(R.id.editTextName);
-        editTextUs = (EditText)findViewById(R.id.editTextUs);
-        editTextPw = (EditText)findViewById(R.id.editTextPassword);
-        editTextCfPw = (EditText)findViewById(R.id.editTextCfPw);
-        editTextEmail = (EditText)findViewById(R.id.editTextEmail);
-        radioButtonMale = (RadioButton)findViewById(R.id.radioButtonMale);
-        radioButtonFemale = (RadioButton)findViewById(R.id.radioButtonFemale);
+        editTextName = (EditText) findViewById(R.id.editTextName);
+        editTextUs = (EditText) findViewById(R.id.editTextUs);
+        editTextPw = (EditText) findViewById(R.id.editTextPassword);
+        editTextCfPw = (EditText) findViewById(R.id.editTextCfPw);
+        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
+        radioButtonMale = (RadioButton) findViewById(R.id.radioButtonMale);
+        radioButtonFemale = (RadioButton) findViewById(R.id.radioButtonFemale);
 
 
         readCustomer();
 
     }
+
     private void readCustomer() {
         try {
             // Check availability of network connection.
@@ -111,10 +112,9 @@ public class Register1Activity extends AppCompatActivity {
                                 String username = recordResponse.getString("Username");
                                 String password = recordResponse.getString("Password");
 
-                                Customer cust = new Customer(custID, name, gender, email, username,password,accountBalance);
+                                Customer cust = new Customer(custID, name, gender, email, username, password, accountBalance);
                                 custList.add(cust);
                             }
-
 
 
                         } catch (Exception e) {
@@ -134,33 +134,27 @@ public class Register1Activity extends AppCompatActivity {
     }
 
 
-
-
-
-    public void checkDetails(View v){
+    public void checkDetails(View v) {
         //Check validation
-        boolean valid=false;
-        String errorMsg="";
-        String name="",username="",gender="",email="",password="",confirmPw="";
+        boolean valid = false;
+        String errorMsg = "";
+        String name = "", username = "", gender = "", email = "", password = "", confirmPw = "";
         int dbLength = 10;//get database length
 
         name = editTextName.getText().toString();
-        if(name.isEmpty()||name.equals("")) {
+        if (name.isEmpty() || name.equals("")) {
             errorMsg = "Please enter your name.";
-        }else{
+        } else {
             username = editTextUs.getText().toString();
             boolean usernameRepeat = false;
-            /*
+
             //check all usernames in database
-            Customer customer = new Customer();
-            custList.contains()
-            for(int i=0;i<dbLength;i++) {
-                if (username.equals()) {
+            for (int i = 0; i < custList.size(); i++) {
+                if (username.equals(custList.get(i).getUsername())) {
                     usernameRepeat = true;
                     break;
                 }
             }
-            */
             if (username.isEmpty() || username.equals("")) {
                 errorMsg = "Please enter username.";
             } else if (username.contains(" ")) {
@@ -176,15 +170,14 @@ public class Register1Activity extends AppCompatActivity {
                 } else {
                     email = editTextEmail.getText().toString();
                     boolean emailRepeat = false;
-                /*
-                //check all emails in database
-                for(int i=0;i<dbLength;i++){
-                    if(email.equals()){
-                        emailRepeat = true;
-                        break;
+
+                    //check all emails in database
+                    for (int i = 0; i < custList.size(); i++) {
+                        if (email.equals(custList.get(i).getEmail())) {
+                            emailRepeat = true;
+                            break;
+                        }
                     }
-                }
-                */
                     if (email.isEmpty() || email.equals("")) {
                         errorMsg = "Please enter email.";
                     } else if (email.length() > 25) {
@@ -218,9 +211,9 @@ public class Register1Activity extends AppCompatActivity {
         if (valid) {
 
             String cID;
-            String idPrefix="C"; //set prefix of customerID
+            String idPrefix = "C"; //set prefix of customerID
             //Continue the index from last customer
-            cID = idPrefix + String.format("%4d", custList.size()+1001);
+            cID = idPrefix + String.format("%4d", custList.size() + 1001);
 
             Customer cust = new Customer();
             cust.setCustomerID(cID);
@@ -233,7 +226,7 @@ public class Register1Activity extends AppCompatActivity {
             try {
                 String url = getApplicationContext().getString(R.string.insert_customer_url);
                 makeServiceCall(this, url, cust);
-                intent = new Intent(getApplicationContext(),LoginActivity.class);
+                intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -258,7 +251,7 @@ public class Register1Activity extends AppCompatActivity {
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            Toast.makeText(getApplicationContext(), "Account Created." , Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Account Created.", Toast.LENGTH_LONG).show();
                             finish();
                         }
                     },
@@ -297,7 +290,7 @@ public class Register1Activity extends AppCompatActivity {
     }
 
 
-    public void reset(View v){
+    public void reset(View v) {
         editTextName.setText("");
         editTextUs.setText("");
         editTextPw.setText("");
