@@ -76,7 +76,6 @@ public class Register1Activity extends AppCompatActivity {
         try {
             // Check availability of network connection.
             if (isConnected) {
-
                 getCust(getApplicationContext(), getResources().getString(R.string.get_customer_url));
             } else {
                 Toast.makeText(getApplicationContext(), "Network is NOT available",
@@ -98,8 +97,6 @@ public class Register1Activity extends AppCompatActivity {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-
-
                         try {
                             //Clear list
                             custList.clear();
@@ -116,7 +113,6 @@ public class Register1Activity extends AppCompatActivity {
 
                                 Customer cust = new Customer(custID, name, gender, email, username,password,accountBalance);
                                 custList.add(cust);
-
                             }
 
 
@@ -156,6 +152,8 @@ public class Register1Activity extends AppCompatActivity {
             boolean usernameRepeat = false;
             /*
             //check all usernames in database
+            Customer customer = new Customer();
+            custList.contains()
             for(int i=0;i<dbLength;i++) {
                 if (username.equals()) {
                     usernameRepeat = true;
@@ -235,14 +233,12 @@ public class Register1Activity extends AppCompatActivity {
             try {
                 String url = getApplicationContext().getString(R.string.insert_customer_url);
                 makeServiceCall(this, url, cust);
+                intent = new Intent(getApplicationContext(),LoginActivity.class);
+                startActivity(intent);
             } catch (Exception e) {
                 e.printStackTrace();
                 Toast.makeText(getApplicationContext(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
             }
-
-
-           // intent = new Intent(this,LoginActivity.class);
-          //  startActivity(intent);
         } else {
             //Display error message
             Toast toast = new Toast(this);

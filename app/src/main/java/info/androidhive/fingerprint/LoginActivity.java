@@ -61,7 +61,6 @@ public class LoginActivity extends AppCompatActivity {
         try {
             // Check availability of network connection.
             if (isConnected) {
-
                 getCust(getApplicationContext(), getResources().getString(R.string.get_customer_url));
             } else {
                 Toast.makeText(getApplicationContext(), "Network is NOT available",
@@ -122,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void login(View v) {
-        boolean valid = true;//true for testing phase ONLY
+        boolean valid = false;
 
         String username, password;
         username = String.valueOf(editTextUs.getText());
@@ -132,9 +131,8 @@ public class LoginActivity extends AppCompatActivity {
             if (custList.get(i).getUsername().equalsIgnoreCase(username) && custList.get(i).getPassword().equalsIgnoreCase(password)) {
                 custNo =i;
                 valid = true;
-
             }else
-                valid=false;
+                valid = false;
         }
 
         if (valid) {
