@@ -61,7 +61,7 @@
     <string name="title_activity_show_qr">QR Code</string>
 
     <string name="get_customer_url">https://kongyh-wa15.000webhostapp.com/select_customer.php</string>
-    <string name="insert_customer_url">https://kongyh-wa15.000webhostapp.com/insert_course.php</string>
+    <string name="insert_customer_url">https://kongyh-wa15.000webhostapp.com/insert_customer.php</string>
     <string name="get_transaction_url">https://kongyh-wa15.000webhostapp.com/select_transaction.php</string>
     <string name="insert_transaction_url">https://kongyh-wa15.000webhostapp.com/insert_transaction.php</string>
     <string name="refresh">Refresh</string>

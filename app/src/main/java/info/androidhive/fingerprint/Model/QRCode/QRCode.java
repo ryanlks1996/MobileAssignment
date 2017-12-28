@@ -14,7 +14,7 @@ public class QRCode {
     public QRCode(String QRID, String QRImage, String customerID) {
         this.QRID = QRID;
         this.QRImage = QRImage;
-        CustomerID = customerID;
+        this.CustomerID = customerID;
     }
 
     public String getQRID() {
@@ -38,7 +38,7 @@ public class QRCode {
     }
 
     public void setCustomerID(String customerID) {
-        CustomerID = customerID;
+        this.CustomerID = customerID;
     }
 
     @Override
