@@ -34,6 +34,7 @@ import info.androidhive.fingerprint.Model.Customer.Customer;
 import info.androidhive.fingerprint.R;
 
 public class Register1Activity extends AppCompatActivity {
+
     protected static final String NAME = "Register1Activity.name";
     protected static final String USERNAME = "Register1Activity.username";
     protected static final String GENDER = "Register1Activity.gender";
@@ -66,6 +67,7 @@ public class Register1Activity extends AppCompatActivity {
         editTextEmail = (EditText)findViewById(R.id.editTextEmail);
         radioButtonMale = (RadioButton)findViewById(R.id.radioButtonMale);
         radioButtonFemale = (RadioButton)findViewById(R.id.radioButtonFemale);
+
 
         readCustomer();
 
