@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText editTextUs, editTextPassword;
     private TextView textViewMessage;
     private Intent intent;
-    List<Customer> custList;
+    public static List<Customer> custList;
     int custNo;
     public static final String MY_PREFS_NAME = "MyPrefsFile";
     @Override
@@ -52,8 +52,6 @@ public class LoginActivity extends AppCompatActivity {
         textViewMessage = (TextView) findViewById(R.id.textViewMessage);
         editTextUs.setText(null);
         editTextPassword.setText(null);
-
-
 
         readCustomer();
     }
@@ -83,8 +81,6 @@ public class LoginActivity extends AppCompatActivity {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-
-
                         try {
                             //Clear list
                             custList.clear();
@@ -101,7 +97,6 @@ public class LoginActivity extends AppCompatActivity {
 
                                 Customer cust = new Customer(custID, name, gender, email, username, password, accountBalance);
                                 custList.add(cust);
-
                             }
 
 

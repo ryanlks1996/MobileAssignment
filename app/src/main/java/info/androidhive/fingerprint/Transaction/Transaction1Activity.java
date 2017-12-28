@@ -2,6 +2,7 @@ package info.androidhive.fingerprint.Transaction;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -17,10 +18,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 import info.androidhive.fingerprint.AboutActivity;
 import info.androidhive.fingerprint.FingerprintActivity;
 import info.androidhive.fingerprint.HomeActivity;
 import info.androidhive.fingerprint.LoginActivity;
+import info.androidhive.fingerprint.Model.Customer.Customer;
 import info.androidhive.fingerprint.R;
 import info.androidhive.fingerprint.TopupActivity;
 
@@ -70,8 +74,42 @@ public class Transaction1Activity extends AppCompatActivity
         startActivityForResult(intent, REQUEST_QRCODE);
     }
     public void fingerPrints(View v){
-        Intent intent = new Intent(this, FingerprintActivity.class);
-        startActivity(intent);
+        //check if username is valid
+        boolean validUsername = false; //false until found username in database
+        boolean validAmount = true; //true until exception occurred
+        String username  = (String) textViewUsername.getText();
+        List<Customer> customerList = LoginActivity.custList;
+        for(int i=0;i<customerList.size();i++) {
+            if(customerList.get(i).getUsername().equals(username)){
+                String targetCustomerID = customerList.get(i).getCustomerID();
+                validUsername = true;
+                break;
+            }
+        }
+
+        String errorMsg = "";
+        if(!validUsername){
+            errorMsg += " Invalid Username.";
+            textViewMessage.setText(errorMsg);
+        }else {
+            try {
+                double amount = Double.parseDouble(String.valueOf(editTextAmount.getText()));
+            } catch (Exception e) {
+                validAmount = false;
+                errorMsg += " Invalid Amount.";
+                textViewMessage.setText(errorMsg);
+            }
+            if(validUsername && validAmount){
+                //pass variables into pref
+                SharedPreferences.Editor editor = getSharedPreferences(LoginActivity.MY_PREFS_NAME, MODE_PRIVATE).edit();
+                editor.putString("customerID", "Elena");
+                editor.apply();
+
+                //start activity
+                Intent intent = new Intent(this, FingerprintActivity.class);
+                startActivity(intent);
+            }
+        }
     }
 
     @Override
@@ -139,15 +177,5 @@ public class Transaction1Activity extends AppCompatActivity
 
             textViewUsername.setText(username);
         }
-
-        try {
-            double amount = Double.parseDouble(String.valueOf(editTextAmount.getText()));
-        }catch(Exception e){
-            textViewMessage.setText(""+e);
-        }
-        //Process transfer
-
-        //Add transfer history
-
     }
 }

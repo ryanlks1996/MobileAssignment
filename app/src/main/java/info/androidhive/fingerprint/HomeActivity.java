@@ -113,7 +113,6 @@ public class HomeActivity extends AppCompatActivity
         public boolean hasStableIds() {
             return true;
         }
-
     }
 
     public void Transfer(View v){
