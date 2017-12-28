@@ -130,10 +130,9 @@ public class LoginActivity extends AppCompatActivity {
         //Check record in database
         for (int i = 0; i < custList.size(); i++) {
             if (custList.get(i).getUsername().equals(username) && custList.get(i).getPassword().equals(password)) {
-                custNo =i;
+                custNo = i;
                 valid = true;
-            }else
-                valid = false;
+            }
         }
 
         if (valid) {
