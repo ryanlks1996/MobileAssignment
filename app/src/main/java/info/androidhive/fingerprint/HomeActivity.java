@@ -140,7 +140,10 @@ public class HomeActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            Toast toast = new Toast(getApplicationContext());
+            toast.makeText(getApplicationContext(),
+                    "Back disabled. To logout, please press logout button in navigation menu.",
+                    Toast.LENGTH_LONG).show();
         }
     }
 

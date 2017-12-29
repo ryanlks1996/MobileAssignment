@@ -1,5 +1,6 @@
 package info.androidhive.fingerprint;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -38,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     public static List<Customer> custList;
     int custNo;
     public static final String MY_PREFS_NAME = "MyPrefsFile";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +52,6 @@ public class LoginActivity extends AppCompatActivity {
         editTextUs = (EditText) findViewById(R.id.editTextUs);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         textViewMessage = (TextView) findViewById(R.id.textViewMessage);
-        editTextUs.setText(null);
-        editTextPassword.setText(null);
 
         readCustomer();
     }
@@ -114,6 +114,16 @@ public class LoginActivity extends AppCompatActivity {
                 });
         queue.add(jsonObjectRequest);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Toast toast = new Toast(getApplicationContext());
+        toast.makeText(getApplicationContext(), "Back button disabled. Please login again.", Toast.LENGTH_SHORT);
+    }
+
+    public void exit(){
+        //tried System.exit(0) finish() and finishActivity(). not working
     }
 
     public void login(View v) {

@@ -49,19 +49,6 @@ public class Transaction2Activity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            onBackPressed();
-        }
-        return true;
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction2);
@@ -114,17 +101,16 @@ public class Transaction2Activity extends AppCompatActivity {
             @Override
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> qrCodes = detections.getDetectedItems();
-                if(qrCodes.size() != 0)
-                {
-                            //Create Vibrate
-                            Vibrator vibrator = (Vibrator)getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
-                            vibrator.vibrate(5);
+                if (qrCodes.size() != 0) {
+                    //Create Vibrate
+                    Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+                    vibrator.vibrate(5);
 
-                            //Passing value
-                            Intent intent = new Intent();
-                            intent.putExtra(Transaction1Activity.USERNAME,qrCodes.valueAt(0).displayValue);
-                            setResult(Transaction1Activity.REQUEST_QRCODE, intent);
-                            finish();
+                    //Passing value
+                    Intent intent = new Intent();
+                    intent.putExtra(Transaction1Activity.USERNAME, qrCodes.valueAt(0).displayValue);
+                    setResult(Transaction1Activity.REQUEST_QRCODE, intent);
+                    finish();
                 }
             }
         });

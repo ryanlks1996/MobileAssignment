@@ -15,11 +15,11 @@
 
     <ImageView
         android:id="@+id/imageViewNavLogo"
-        android:layout_width="115dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.41"
+        android:layout_width="90dp"
+        android:layout_height="80dp"
+        android:layout_weight="0.76"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@mipmap/logo1" />
 
     <TextView
         android:layout_width="match_parent"

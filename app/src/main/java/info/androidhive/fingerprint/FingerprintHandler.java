@@ -10,11 +10,8 @@ import android.os.CancellationSignal;
 import android.support.v4.app.ActivityCompat;
 import android.widget.TextView;
 
-import info.androidhive.fingerprint.Transaction.Transaction1Activity;
+import info.androidhive.fingerprint.Transaction.Transaction3Activity;
 
-/**
- * Created by whit3hawks on 11/16/16.
- */
 public class FingerprintHandler extends FingerprintManager.AuthenticationCallback {
 
     private Context context;
@@ -50,7 +47,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     @Override
     public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result) {
         ((Activity) context).finish();
-        Intent intent = new Intent(context, Transaction1Activity.class);
+        Intent intent = new Intent(context, Transaction3Activity.class);
         context.startActivity(intent);
     }
 

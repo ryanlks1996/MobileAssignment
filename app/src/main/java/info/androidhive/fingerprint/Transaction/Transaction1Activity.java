@@ -78,10 +78,12 @@ public class Transaction1Activity extends AppCompatActivity
         boolean validUsername = false; //false until found username in database
         boolean validAmount = true; //true until exception occurred
         String username  = (String) textViewUsername.getText();
-        String targetCustomerID=""; //target customer to transfer
+        String targetCustomerID = ""; //target customer to transfer
+        double amount = 0;
 
         List<Customer> customerList = LoginActivity.custList;
-        for(int i=0;i<customerList.size();i++) {
+        int i;
+        for(i=0;i<customerList.size();i++) {
             if(customerList.get(i).getUsername().equals(username)){
                 targetCustomerID = customerList.get(i).getCustomerID();
                 validUsername = true;
@@ -95,7 +97,11 @@ public class Transaction1Activity extends AppCompatActivity
             textViewMessage.setText(errorMsg);
         }else {
             try {
-                double amount = Double.parseDouble(String.valueOf(editTextAmount.getText()));
+                amount = Double.parseDouble(String.valueOf(editTextAmount.getText()));
+                if(amount<1){
+                    validAmount = false;
+                    errorMsg += " Invalid Amount. Please enter a larger amount";
+                }
             } catch (Exception e) {
                 validAmount = false;
                 errorMsg += " Invalid Amount.";
@@ -104,7 +110,9 @@ public class Transaction1Activity extends AppCompatActivity
             if(validUsername && validAmount){
                 //pass variables into pref
                 SharedPreferences.Editor editor = getSharedPreferences(LoginActivity.MY_PREFS_NAME, MODE_PRIVATE).edit();
-                editor.putString("customerID", targetCustomerID);
+                editor.putString("targetCustomerID", targetCustomerID);
+                editor.putFloat("accountBalance",customerList.get(i).getAccountBalance());
+                editor.putFloat("amount", (float) amount);
                 editor.apply();
 
                 //start activity
