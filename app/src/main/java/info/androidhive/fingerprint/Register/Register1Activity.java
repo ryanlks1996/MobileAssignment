@@ -130,9 +130,7 @@ public class Register1Activity extends AppCompatActivity {
                     }
                 });
         queue.add(jsonObjectRequest);
-
     }
-
 
     public void checkDetails(View v) {
         //Check validation

@@ -1,7 +1,7 @@
 package info.androidhive.fingerprint.Model.Customer;
 
 /**
- * Created by Family on 27/12/2017.
+ * Created by Kong Yih Hern on 27/12/2017.
  */
 
 public class Customer {
