@@ -141,9 +141,9 @@ public class HomeActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             Toast toast = new Toast(getApplicationContext());
-            toast.makeText(getApplicationContext(),
-                    "Back disabled. To logout, please press logout button in navigation menu.",
-                    Toast.LENGTH_LONG).show();
+            toast.makeText(getApplicationContext(),"Successfully log out.",Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+            startActivity(intent);
         }
     }
 

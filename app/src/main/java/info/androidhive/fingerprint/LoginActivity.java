@@ -1,12 +1,12 @@
 package info.androidhive.fingerprint;
 
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Process;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
@@ -119,11 +119,9 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Toast toast = new Toast(getApplicationContext());
-        toast.makeText(getApplicationContext(), "Back button disabled. Please login again.", Toast.LENGTH_SHORT);
-    }
-
-    public void exit(){
-        //tried System.exit(0) finish() and finishActivity(). not working
+        toast.makeText(getApplicationContext(), "Terminating program..", Toast.LENGTH_SHORT);
+        Process.killProcess(Process.myPid());
+        super.onDestroy();
     }
 
     public void login(View v) {
