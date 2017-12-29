@@ -78,10 +78,12 @@ public class Transaction1Activity extends AppCompatActivity
         boolean validUsername = false; //false until found username in database
         boolean validAmount = true; //true until exception occurred
         String username  = (String) textViewUsername.getText();
+        String targetCustomerID=""; //target customer to transfer
+
         List<Customer> customerList = LoginActivity.custList;
         for(int i=0;i<customerList.size();i++) {
             if(customerList.get(i).getUsername().equals(username)){
-                String targetCustomerID = customerList.get(i).getCustomerID();
+                targetCustomerID = customerList.get(i).getCustomerID();
                 validUsername = true;
                 break;
             }
@@ -102,7 +104,7 @@ public class Transaction1Activity extends AppCompatActivity
             if(validUsername && validAmount){
                 //pass variables into pref
                 SharedPreferences.Editor editor = getSharedPreferences(LoginActivity.MY_PREFS_NAME, MODE_PRIVATE).edit();
-                editor.putString("customerID", "Elena");
+                editor.putString("customerID", targetCustomerID);
                 editor.apply();
 
                 //start activity
