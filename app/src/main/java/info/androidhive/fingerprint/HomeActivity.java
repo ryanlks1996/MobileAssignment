@@ -3,6 +3,7 @@ package info.androidhive.fingerprint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
@@ -32,18 +34,28 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import info.androidhive.fingerprint.Model.Transaction.Transaction;
 import info.androidhive.fingerprint.Transaction.Transaction1Activity;
+import info.androidhive.fingerprint.Transaction.TransactionAdapter;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    public static final String MY_PREFS_NAME = "MyPrefsFile";
     ListView listViewHistory;
-    @Override
+    List<Transaction> transactionList;
+    RequestQueue queue;
+    String customerIDSession;
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        transactionList= new ArrayList<>();
+        listViewHistory = (ListView) findViewById(R.id.listViewHistory);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -53,68 +65,78 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        if (!isConnected()) {
+        if (isConnected()) {
+            downloadTransaction(getApplicationContext(), getString(R.string.select_transaction_url));
+        }else{
             Toast.makeText(getApplicationContext(), "No network", Toast.LENGTH_LONG).show();
         }
 
-        listViewHistory = (ListView)findViewById(R.id.listViewHistory);
-        String[] values = new String[] { "Android", "iPhone", "WindowsMobile",
-                "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-                "Linux", "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux",
-                "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux", "OS/2",
-                "Android", "iPhone", "WindowsMobile" };
+    }
+    private boolean isConnected() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        final ArrayList<String> list = new ArrayList<String>();
-        for (int i = 0; i < values.length; ++i) {
-            list.add(values[i]);
-        }
-        final StableArrayAdapter adapter = new StableArrayAdapter(this,
-                android.R.layout.simple_list_item_1, list);
-        listViewHistory.setAdapter(adapter);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
 
-        listViewHistory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, final View view,
-                                    int position, long id) {
-                final String item = (String) parent.getItemAtPosition(position);
-                view.animate().setDuration(2000).alpha(0)
-                        .withEndAction(new Runnable() {
-                            @Override
-                            public void run() {
-                                list.remove(item);
-                                adapter.notifyDataSetChanged();
-                                view.setAlpha(1);
+    }
+
+
+    private void downloadTransaction(Context context, String url) {
+        // Instantiate the RequestQueue
+        queue = Volley.newRequestQueue(context);
+
+
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        customerIDSession =prefs.getString("customerID", "No value"); //No value is default value
+
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(
+                url,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            transactionList.clear();
+
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject transactionResponse = (JSONObject) response.get(i);
+                                String transactionID = transactionResponse.getString("TransactionID");
+                                int  amount = Integer.parseInt(transactionResponse.getString("Amount"));
+                                String transactionDate = transactionResponse.getString("TransactionDate");
+                                int charges = Integer.parseInt(transactionResponse.getString("Charges"));
+                                String type =transactionResponse.getString("Type");
+                                String customerID = transactionResponse.getString("CustomerID");
+                                Transaction transaction = new Transaction(transactionID, transactionDate, customerID,type,amount,charges);
+
+                               if(customerIDSession.equals(transaction.getCustomerID()))
+                                transactionList.add(transaction);
+
                             }
-                        });
-            }
+                            loadTransaction();
 
-        });
+                        } catch (Exception e) {
+                            Toast.makeText(getApplicationContext(), "Error:" + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(getApplicationContext(), "Error" + volleyError.getMessage(), Toast.LENGTH_LONG).show();
+
+                    }
+                });
+
+
+        // Add the request to the RequestQueue.
+        queue.add(jsonObjectRequest);
     }
 
-    private class StableArrayAdapter extends ArrayAdapter<String> {
-
-        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
-
-        public StableArrayAdapter(Context context, int textViewResourceId,
-                                  List<String> objects) {
-            super(context, textViewResourceId, objects);
-            for (int i = 0; i < objects.size(); ++i) {
-                mIdMap.put(objects.get(i), i);
-            }
-        }
-
-        @Override
-        public long getItemId(int position) {
-            String item = getItem(position);
-            return mIdMap.get(item);
-        }
-
-        @Override
-        public boolean hasStableIds() {
-            return true;
-        }
+    private void loadTransaction() {
+        final TransactionAdapter adapter = new TransactionAdapter(this, R.layout.content_home, transactionList);
+        listViewHistory.setAdapter(adapter);
+     //  Toast.makeText(getApplicationContext(), "Count :" + transactionList.size(), Toast.LENGTH_LONG).show();
     }
-
     public void Transfer(View v){
         Intent intent = new Intent(this, Transaction1Activity.class);
         startActivity(intent);
@@ -125,14 +147,7 @@ public class HomeActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    private boolean isConnected() {
-        ConnectivityManager cm =
-                (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-
-    }
 
     @Override
     public void onBackPressed() {

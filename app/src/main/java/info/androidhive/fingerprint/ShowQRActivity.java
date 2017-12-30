@@ -2,6 +2,7 @@ package info.androidhive.fingerprint;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -17,21 +18,51 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import info.androidhive.fingerprint.Model.Customer.Customer;
+import info.androidhive.fingerprint.Model.QRCode.QRAdapter;
+import info.androidhive.fingerprint.Model.QRCode.QRCode;
+import info.androidhive.fingerprint.Model.Transaction.Transaction;
 import info.androidhive.fingerprint.Transaction.Transaction1Activity;
+import info.androidhive.fingerprint.Transaction.TransactionAdapter;
 
 public class ShowQRActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    ImageView imageViewQRCode;
+
+    public static final String MY_PREFS_NAME = "MyPrefsFile";
+    ListView listViewQRImg;
+    List<QRCode> qrImageList;
+    RequestQueue queue;
+    String customerIDSession;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_qr);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        qrImageList= new ArrayList<>();
+        listViewQRImg = (ListView) findViewById(R.id.listViewQRImg);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -41,14 +72,12 @@ public class ShowQRActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        if (!isConnected()) {
+        if (isConnected()) {
+            downloadQRImage(getApplicationContext(), getString(R.string.select_qr_url));
+        }else{
             Toast.makeText(getApplicationContext(), "No network", Toast.LENGTH_LONG).show();
         }
 
-        imageViewQRCode = (ImageView)findViewById(R.id.imageViewQRCode);
-        //connect to database and retrieve qrcode based on customerID
-
-        //set image uri
 
     }
 
@@ -60,6 +89,62 @@ public class ShowQRActivity extends AppCompatActivity
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
 
     }
+
+    private void downloadQRImage(Context context, String url) {
+        // Instantiate the RequestQueue
+        queue = Volley.newRequestQueue(context);
+
+
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        customerIDSession =prefs.getString("customerID", "No value"); //No value is default value
+
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(
+                url,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            qrImageList.clear();
+
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject qrResponse = (JSONObject) response.get(i);
+                                String qrID = qrResponse.getString("QRID");
+                                String qrImage = qrResponse.getString("QRImage");
+                                String customerID = qrResponse.getString("CustomerID");
+                                QRCode qrCode = new QRCode(qrID, qrImage, customerID);
+
+                               if(customerIDSession.equals(qrCode.getCustomerID()))
+                                    qrImageList.add(qrCode);
+
+                            }
+                            loadQRImage();
+
+                        } catch (Exception e) {
+                            Toast.makeText(getApplicationContext(), "Error:" + e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(getApplicationContext(), "Error" + volleyError.getMessage(), Toast.LENGTH_LONG).show();
+
+                    }
+                });
+
+
+        // Add the request to the RequestQueue.
+        queue.add(jsonObjectRequest);
+    }
+
+    private void loadQRImage() {
+        final QRAdapter adapter = new QRAdapter(this, R.layout.content_show_qr, qrImageList);
+        listViewQRImg.setAdapter(adapter);
+
+       // Toast.makeText(getApplicationContext(), "Count :" + qrImageList.size(), Toast.LENGTH_LONG).show();
+    }
+
+
 
     @Override
     public void onBackPressed() {
@@ -112,7 +197,7 @@ public class ShowQRActivity extends AppCompatActivity
         return true;
     }
 
-    public void returns(View v){
+    public void returns(View v) {
         super.onBackPressed();
     }
 }

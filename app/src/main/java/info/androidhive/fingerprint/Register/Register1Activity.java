@@ -26,6 +26,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -213,6 +214,8 @@ public class Register1Activity extends AppCompatActivity {
             //Continue the index from last customer
             cID = idPrefix + String.format("%4d", custList.size() + 1001);
 
+
+
             Customer cust = new Customer();
             cust.setCustomerID(cID);
             cust.setName(name);
@@ -262,6 +265,8 @@ public class Register1Activity extends AppCompatActivity {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<>();
+
+
                     params.put("CustomerID", cust.getCustomerID());
                     params.put("Name", cust.getName());
                     params.put("AccountBalance", String.valueOf(cust.getAccountBalance()));
@@ -286,6 +291,8 @@ public class Register1Activity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+
 
 
     public void reset(View v) {
