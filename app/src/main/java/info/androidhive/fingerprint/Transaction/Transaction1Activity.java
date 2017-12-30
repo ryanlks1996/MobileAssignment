@@ -111,7 +111,7 @@ public class Transaction1Activity extends AppCompatActivity
                 //pass variables into pref
                 SharedPreferences.Editor editor = getSharedPreferences(LoginActivity.MY_PREFS_NAME, MODE_PRIVATE).edit();
                 editor.putString("targetCustomerID", targetCustomerID);
-                editor.putFloat("accountBalance",customerList.get(i).getAccountBalance());
+                editor.putInt("accountBalance",customerList.get(i).getAccountBalance());
                 editor.putFloat("amount", (float) amount);
                 editor.apply();
 

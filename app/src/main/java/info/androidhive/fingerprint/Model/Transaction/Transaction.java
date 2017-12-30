@@ -61,6 +61,9 @@ public class Transaction {
         this.charges = charges;
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getType() {
         return type;

@@ -43,9 +43,10 @@ public class Transaction3Activity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         String customerID =prefs.getString("customerID", "No value");
         String targetCustomerID =prefs.getString("targetCustomerID", "No value"); //No value is default value
-        double accountBalance = prefs.getFloat("accountBalance",0);
-        double targetAccountBal = 0;
+        int accountBalance = prefs.getInt("accountBalance",0);
+        int targetAccountBal = 0;
         double amount = prefs.getFloat("amount", 0); //0 is the default value.
+        int charges = 1; //1 dollar of service fee will be charged
 
         List<Customer> customerList = LoginActivity.custList;
         for(int i=0; i<customerList.size(); i++) {
@@ -56,21 +57,43 @@ public class Transaction3Activity extends AppCompatActivity {
         }
 
         //validation already performed on Transaction1Activity
-        accountBalance -= amount;
+        accountBalance -= (amount+charges);
         targetAccountBal += amount;
 
         Transaction transfer = new Transaction();
         Transaction receive = new Transaction();
         Date date = new Date();
+
         transfer.setAmount((int) amount);
         receive.setAmount((int) amount);
         transfer.setTransactionDate(String.valueOf(date));
         receive.setTransactionDate(String.valueOf(date));
+        transfer.setCharges(charges);
+        receive.setCharges(charges);
+        transfer.setType("Transferred");
+        receive.setType("Received");
+        transfer.setCustomerID(customerID);
+        receive.setCustomerID(targetCustomerID);
 
         try {
             String url = getApplicationContext().getString(R.string.insert_transaction_url);
-            makeServiceCall(this, url, transfer);
-            makeServiceCall(this, url, receive);
+            makeServiceCallTransaction(this, url, transfer);
+            makeServiceCallTransaction(this, url, receive);
+            url = getApplicationContext().getString(R.string.update_customer_url);
+            makeServiceCallCustomer(this, url, customerID, accountBalance);
+            makeServiceCallCustomer(this, url, targetCustomerID, targetAccountBal);
+
+            //update customer list
+            for(int i=0; i<customerList.size(); i++){
+                if(customerList.get(i).getCustomerID().equals(customerID)){
+                    customerList.get(i).setAccountBalance(accountBalance);
+                }
+                if(customerList.get(i).getCustomerID().equals(targetCustomerID)){
+                    customerList.get(i).setAccountBalance(targetAccountBal);
+                }
+            }
+            LoginActivity.custList = customerList;
+
             Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
             startActivity(intent);
         } catch (Exception e) {
@@ -79,7 +102,7 @@ public class Transaction3Activity extends AppCompatActivity {
         }
     }
 
-    public void makeServiceCall(Context context, String url, final Transaction transaction) {
+    public void makeServiceCallTransaction(Context context, String url, final Transaction transaction) {
         //mPostCommentResponse.requestStarted();
         RequestQueue queue = Volley.newRequestQueue(context);
 
@@ -91,7 +114,7 @@ public class Transaction3Activity extends AppCompatActivity {
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            Toast.makeText(getApplicationContext(), "Account Created.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Successfully transferred.", Toast.LENGTH_LONG).show();
                             finish();
                         }
                     },
@@ -104,12 +127,55 @@ public class Transaction3Activity extends AppCompatActivity {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<>();
-                    params.put("CustomerID", transaction.getCustomerID());
                     params.put("Amount", String.valueOf(transaction.getAmount()));
                     params.put("TransactionDate", transaction.getTransactionDate());
                     params.put("Charges", String.valueOf(transaction.getCharges()));
                     params.put("Type", transaction.getType());
                     params.put("CustomerID", transaction.getCustomerID());
+
+                    return params;
+                }
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("Content-Type", "application/x-www-form-urlencoded");
+                    return params;
+                }
+            };
+            queue.add(postRequest);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void makeServiceCallCustomer(Context context, String url, final String customerID, final int balance) {
+        //mPostCommentResponse.requestStarted();
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        //Send data
+        try {
+            StringRequest postRequest = new StringRequest(
+                    Request.Method.POST,
+                    url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Toast.makeText(getApplicationContext(), "Successfully transferred.", Toast.LENGTH_LONG).show();
+                            finish();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getApplicationContext(), "Error. " + error.toString(), Toast.LENGTH_LONG).show();
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("AccountBalance", String.valueOf(balance));
+                    params.put("CustomerID", customerID);
 
                     return params;
                 }
