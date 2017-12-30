@@ -1,40 +1,27 @@
 package info.androidhive.fingerprint.Model.Transaction;
 
 /**
- * Created by Kong Yih Hern on 27/12/2017.
+ * Created by Family on 27/12/2017.
  */
 
 public class Transaction {
-    private String transactionID,transactionDate, type, customerID;
+    private String transactionID,transactionDate, customerID,type;
     private int amount, charges;
 
     public Transaction() {
 
     }
 
-    public Transaction(String transactionID, String transactionDate, String type, String customerID, int amount, int charges) {
+    public Transaction(String transactionID, String transactionDate, String customerID, String type, int amount, int charges) {
         this.transactionID = transactionID;
         this.transactionDate = transactionDate;
-        this.type = type;
         this.customerID = customerID;
         this.amount = amount;
         this.charges = charges;
-    }
-
-    @Override
-    public String toString() {
-        return "Transaction{" +
-        "transactionID='" + transactionID + '\'' +
-                ", transactionDate='" + transactionDate + '\'' +
-                ", type='" + type + '\'' +
-                ", customerID='" + customerID + '\'' +
-                ", amount=" + amount +
-                ", charges=" + charges +
-                '}';
+        this.type = type;
     }
 
     public String getTransactionID() {
-
         return transactionID;
     }
 
@@ -48,14 +35,6 @@ public class Transaction {
 
     public void setTransactionDate(String transactionDate) {
         this.transactionDate = transactionDate;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getCustomerID() {
@@ -80,5 +59,26 @@ public class Transaction {
 
     public void setCharges(int charges) {
         this.charges = charges;
+    }
+
+
+    public String getType() {
+        return type;
+    }
+
+    public void setCharges(String type) {
+        this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "transactionID='" + transactionID + '\'' +
+                ", transactionDate='" + transactionDate + '\'' +
+                ", customerID='" + customerID + '\'' +
+                ", amount=" + amount +
+                ", charges=" + charges +
+                ", type=" + type +
+                '}';
     }
 }
