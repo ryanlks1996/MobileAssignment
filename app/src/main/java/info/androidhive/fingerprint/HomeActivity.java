@@ -76,7 +76,7 @@ public class HomeActivity extends AppCompatActivity
             SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
             customerIDSession = prefs.getString("customerID", "No value"); //No value is default value
 
-            getCust(getApplicationContext(), getResources().getString(R.string.get_customer_url));
+            getCust(getApplicationContext(), getResources().getString(R.string.select_customer_url));
             downloadTransaction(getApplicationContext(), getString(R.string.select_transaction_url));
 
         } else {
