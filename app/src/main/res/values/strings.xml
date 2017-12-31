@@ -49,8 +49,9 @@
     <string name="activity_home_note">Close and re-open the app to see the fingerprint auth screen again</string>
 
     <string name="transactionDate">   Date: </string>
-    <string name="transactionAmount">   Amount: RM</string>
+    <string name="transactionAmount">   Amount(RM): </string>
     <string name="transactiontype">   Activity Type: </string>
+    <string name="charges">   Charges(RM): 1</string>
     <string name="app_name">Transaction Master</string>
     <string name="title_fingerprint">One-touch Transfer</string>
     <string name="title_activity_about">About this app</string>
@@ -64,6 +65,8 @@
     <string name="edit">Edit</string>
     <string name="title_activity_show_qr">QR Code</string>
 
+    <string name="get_customer_url">https://kongyh-wa15.000webhostapp.com/select_customer.php</string>
+    <string name="get_transaction_url">https://kongyh-wa15.000webhostapp.com/select_transaction.php</string>
     <string name="insert_customer_url">https://kongyh-wa15.000webhostapp.com/insert_customer.php</string>
     <string name="insert_transaction_url">https://kongyh-wa15.000webhostapp.com/insert_transaction.php</string>
     <string name="select_qr_url">https://kongyh-wa15.000webhostapp.com/select_qr.php</string>
@@ -75,6 +78,6 @@
     <string name="nameR">Name :</string>
     <string name="title_activity_topup">Top Up</string>
     <string name="topup">Top Up</string>
-    <string name="account_balance">Account Balance :</string>
+    <string name="account_balance">Account Balance (RM):</string>
     <string name="btn_exit">Exit</string>
 </resources>

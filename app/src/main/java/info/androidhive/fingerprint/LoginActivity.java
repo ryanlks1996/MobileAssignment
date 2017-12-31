@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         readCustomer();
     }
 
-    private void readCustomer() {
+    public void readCustomer() {
         try {
             // Check availability of network connection.
             if (isConnected) {
@@ -72,8 +72,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void getCust(Context context, String url) {
-        //mPostCommentResponse.requestStarted();
+    public void getCust(Context context, String url) {
 
         RequestQueue queue = Volley.newRequestQueue(context);
 
