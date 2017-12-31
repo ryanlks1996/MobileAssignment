@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         try {
             // Check availability of network connection.
             if (isConnected) {
-                getCust(getApplicationContext(), getResources().getString(R.string.get_customer_url));
+                getCust(getApplicationContext(), getResources().getString(R.string.select_customer_url));
             } else {
                 Toast.makeText(getApplicationContext(), "Network is NOT available",
                         Toast.LENGTH_SHORT).show();
