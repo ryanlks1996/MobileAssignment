@@ -99,7 +99,7 @@ public class HomeActivity extends AppCompatActivity
             if (customerIDSession.equalsIgnoreCase(custList.get(i).getCustomerID()))
                 accBalance = custList.get(i).getAccountBalance();
         }
-        textViewBalance.setText(textViewBalance.getText() +" "+ String.valueOf(accBalance));
+        textViewBalance.setText(getString(R.string.account_balance) +" "+ String.valueOf(accBalance));
     }
 
     public void getCust(Context context, String url) {
@@ -236,9 +236,14 @@ public class HomeActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        if (id == R.id.action_refresh) {
+            getCust(getApplicationContext(), getResources().getString(R.string.select_customer_url));
+            downloadTransaction(getApplicationContext(), getString(R.string.select_transaction_url));
+            Toast.makeText(getApplicationContext(), "Page Refreshed.", Toast.LENGTH_LONG).show();
+        }
         return super.onOptionsItemSelected(item);
     }
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override

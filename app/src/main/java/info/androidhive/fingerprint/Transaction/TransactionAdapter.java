@@ -33,15 +33,18 @@ public class TransactionAdapter extends ArrayAdapter<Transaction> {
 
         View rowView = inflater.inflate(R.layout.transaction_history, parent, false);
 
-        TextView tvTransactionDate, tvAmount, tvType;
+        TextView tvTransactionDate, tvAmount, tvType,textViewCharges;
 
         tvTransactionDate = (TextView)rowView.findViewById(R.id.tvTransactionDate);
         tvAmount = (TextView)rowView.findViewById(R.id.tvAmount);
         tvType = (TextView)rowView.findViewById(R.id.tvType);
+        textViewCharges = (TextView)rowView.findViewById(R.id.textViewCharges);
 
         tvTransactionDate.setText(tvTransactionDate.getText() +" " + transaction.getTransactionDate());
         tvAmount.setText(tvAmount.getText() +" " + String.valueOf(transaction.getAmount()));
         tvType.setText(tvType.getText() + " "+ transaction.getType() );
+        textViewCharges.setText(textViewCharges.getText()+ " "+ String.valueOf(transaction.getCharges()));
+
         return rowView;
     }
 }

@@ -51,7 +51,8 @@ public class Transaction3Activity extends AppCompatActivity {
         int charges = 1; //1 dollar of service fee will be charged
         int accountBalance = 0;
 
-        List<Customer> customerList = LoginActivity.custList;
+        HomeActivity homeActivity = new HomeActivity();
+        List<Customer> customerList = homeActivity.custList;
         for(int i=0; i<customerList.size(); i++) {
             if(customerList.get(i).getCustomerID().equals(targetCustomerID)){
                 targetAccountBal = customerList.get(i).getAccountBalance();
@@ -102,7 +103,8 @@ public class Transaction3Activity extends AppCompatActivity {
                     customerList.get(i).setAccountBalance(targetAccountBal);
                 }
             }
-            LoginActivity.custList = customerList;
+
+            homeActivity.custList = customerList;
 
             Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
             startActivity(intent);

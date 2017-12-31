@@ -71,6 +71,8 @@
     <string name="select_transaction_url">https://kongyh-wa15.000webhostapp.com/select_transaction.php</string>
     <string name="update_customer_url">https://kongyh-wa15.000webhostapp.com/update_customer.php</string>
 
+    <string name="check_Accountblc">Check Account Balance</string>
+    <string name="topup_msg">Top Up Your Account Now</string>
     <string name="refresh">Refresh</string>
     <string name="rName">Name</string>
     <string name="nameR">Name :</string>
@@ -78,6 +80,6 @@
     <string name="topup">Top Up</string>
     <string name="account_balance">Account Balance (RM):</string>
     <string name="btn_exit">Exit</string>
-    <string name="charges">Charges (RM):</string>
+    <string name="charges">Charges (RM): </string>
     <string name="rCustomerID">Customer ID :</string>
 </resources>
