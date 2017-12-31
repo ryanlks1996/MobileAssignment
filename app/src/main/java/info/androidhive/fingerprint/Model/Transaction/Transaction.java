@@ -33,9 +33,7 @@ public class Transaction {
         return transactionDate;
     }
 
-    public void setTransactionDate(String transactionDate) {
-        this.transactionDate = transactionDate;
-    }
+    public void setTransactionDate(String transactionDate) {this.transactionDate = transactionDate;}
 
     public String getCustomerID() {
         return customerID;
@@ -61,15 +59,9 @@ public class Transaction {
         this.charges = charges;
     }
 
+    public String getType() {return type;}
+
     public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setCharges(String type) {
         this.type = type;
     }
 

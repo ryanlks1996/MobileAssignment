@@ -40,7 +40,7 @@ public class TransactionAdapter extends ArrayAdapter<Transaction> {
         tvType = (TextView)rowView.findViewById(R.id.tvType);
 
         tvTransactionDate.setText(tvTransactionDate.getText() +" " + transaction.getTransactionDate());
-        tvAmount.setText(tvAmount.getText() + String.valueOf(transaction.getAmount()));
+        tvAmount.setText(tvAmount.getText() +" " + String.valueOf(transaction.getAmount()));
         tvType.setText(tvType.getText() + " "+ transaction.getType() );
         return rowView;
     }

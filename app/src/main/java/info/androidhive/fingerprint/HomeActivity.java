@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -35,6 +36,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import info.androidhive.fingerprint.Model.Customer.Customer;
 import info.androidhive.fingerprint.Model.Transaction.Transaction;
 import info.androidhive.fingerprint.Transaction.Transaction1Activity;
 import info.androidhive.fingerprint.Transaction.TransactionAdapter;
@@ -47,6 +49,8 @@ public class HomeActivity extends AppCompatActivity
     List<Transaction> transactionList;
     RequestQueue queue;
     String customerIDSession;
+    public static List<Customer> custList;
+    TextView textViewBalance;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +58,7 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        transactionList= new ArrayList<>();
+        transactionList = new ArrayList<>();
         listViewHistory = (ListView) findViewById(R.id.listViewHistory);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -62,16 +66,26 @@ public class HomeActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        textViewBalance = (TextView) findViewById(R.id.textViewBalance);
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        custList = new ArrayList<>();
         if (isConnected()) {
+
+            SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+            customerIDSession = prefs.getString("customerID", "No value"); //No value is default value
+
+            getCust(getApplicationContext(), getResources().getString(R.string.get_customer_url));
             downloadTransaction(getApplicationContext(), getString(R.string.select_transaction_url));
-        }else{
+
+        } else {
             Toast.makeText(getApplicationContext(), "No network", Toast.LENGTH_LONG).show();
         }
 
+
     }
+
     private boolean isConnected() {
         ConnectivityManager cm =
                 (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -81,14 +95,63 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
+    private void displayAccountBalance() {
+        int accBalance = 0;
+        for (int i = 0; i < custList.size(); i++) {
+            if (customerIDSession.equalsIgnoreCase(custList.get(i).getCustomerID()))
+                accBalance = custList.get(i).getAccountBalance();
+        }
+        textViewBalance.setText(textViewBalance.getText() +" "+ String.valueOf(accBalance));
+    }
+
+    public void getCust(Context context, String url) {
+
+        RequestQueue queue = Volley.newRequestQueue(context);
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(url,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            //Clear list
+                            custList.clear();
+
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject recordResponse = (JSONObject) response.get(i);
+                                String custID = recordResponse.getString("CustomerID");
+                                String name = recordResponse.getString("Name");
+                                int accountBalance = Integer.parseInt(recordResponse.getString("AccountBalance"));
+                                String gender = recordResponse.getString("Gender");
+                                String email = recordResponse.getString("Email");
+                                String username = recordResponse.getString("Username");
+                                String password = recordResponse.getString("Password");
+
+                                Customer cust = new Customer(custID, name, gender, email, username, password, accountBalance);
+                                custList.add(cust);
+                            }
+
+                            displayAccountBalance();
+
+                        } catch (Exception e) {
+                            Toast.makeText(getApplicationContext(), "Error 1:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(getApplicationContext(), "Error 2:" + volleyError.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+        queue.add(jsonObjectRequest);
+
+    }
+
 
     private void downloadTransaction(Context context, String url) {
         // Instantiate the RequestQueue
         queue = Volley.newRequestQueue(context);
 
-
-        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-        customerIDSession =prefs.getString("customerID", "No value"); //No value is default value
 
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(
                 url,
@@ -101,15 +164,15 @@ public class HomeActivity extends AppCompatActivity
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject transactionResponse = (JSONObject) response.get(i);
                                 String transactionID = transactionResponse.getString("TransactionID");
-                                int  amount = Integer.parseInt(transactionResponse.getString("Amount"));
+                                int amount = Integer.parseInt(transactionResponse.getString("Amount"));
                                 String transactionDate = transactionResponse.getString("TransactionDate");
                                 int charges = Integer.parseInt(transactionResponse.getString("Charges"));
-                                String type =transactionResponse.getString("Type");
+                                String type = transactionResponse.getString("Type");
                                 String customerID = transactionResponse.getString("CustomerID");
-                                Transaction transaction = new Transaction(transactionID, transactionDate, customerID,type,amount,charges);
+                                Transaction transaction = new Transaction(transactionID, transactionDate, customerID, type, amount, charges);
 
-                               if(customerIDSession.equals(transaction.getCustomerID()))
-                                transactionList.add(transaction);
+                                if (customerIDSession.equals(transaction.getCustomerID()))
+                                    transactionList.add(transaction);
 
                             }
                             loadTransaction();
@@ -135,18 +198,18 @@ public class HomeActivity extends AppCompatActivity
     private void loadTransaction() {
         final TransactionAdapter adapter = new TransactionAdapter(this, R.layout.content_home, transactionList);
         listViewHistory.setAdapter(adapter);
-     //  Toast.makeText(getApplicationContext(), "Count :" + transactionList.size(), Toast.LENGTH_LONG).show();
+        //  Toast.makeText(getApplicationContext(), "Count :" + transactionList.size(), Toast.LENGTH_LONG).show();
     }
-    public void Transfer(View v){
+
+    public void Transfer(View v) {
         Intent intent = new Intent(this, Transaction1Activity.class);
         startActivity(intent);
     }
 
-    public void showQR(View v){
+    public void showQR(View v) {
         Intent intent = new Intent(this, ShowQRActivity.class);
         startActivity(intent);
     }
-
 
 
     @Override
@@ -156,8 +219,8 @@ public class HomeActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             Toast toast = new Toast(getApplicationContext());
-            toast.makeText(getApplicationContext(),"Successfully log out.",Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+            toast.makeText(getApplicationContext(), "Successfully log out.", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
         }
     }
@@ -191,10 +254,10 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_Transfer) {
             intent = new Intent(this, Transaction1Activity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_Topup){
+        } else if (id == R.id.nav_Topup) {
             intent = new Intent(this, TopupActivity.class);
             startActivity(intent);
-        }else if (id == R.id.nav_About) {
+        } else if (id == R.id.nav_About) {
             intent = new Intent(this, AboutActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_Logout) {
