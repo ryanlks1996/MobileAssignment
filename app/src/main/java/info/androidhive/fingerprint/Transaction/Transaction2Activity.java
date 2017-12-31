@@ -108,7 +108,7 @@ public class Transaction2Activity extends AppCompatActivity {
 
                     //Passing value
                     Intent intent = new Intent();
-                    intent.putExtra(Transaction1Activity.USERNAME, qrCodes.valueAt(0).displayValue);
+                    intent.putExtra(Transaction1Activity.CUSTOMERID, qrCodes.valueAt(0).displayValue);
                     setResult(Transaction1Activity.REQUEST_QRCODE, intent);
                     finish();
                 }

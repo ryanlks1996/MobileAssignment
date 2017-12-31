@@ -16,7 +16,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.database.DatabaseException;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -43,15 +46,22 @@ public class Transaction3Activity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         String customerID =prefs.getString("customerID", "No value");
         String targetCustomerID =prefs.getString("targetCustomerID", "No value"); //No value is default value
-        int accountBalance = prefs.getInt("accountBalance",0);
         int targetAccountBal = 0;
-        double amount = prefs.getFloat("amount", 0); //0 is the default value.
+        int amount = prefs.getInt("amount", 0); //0 is the default value.
         int charges = 1; //1 dollar of service fee will be charged
+        int accountBalance = 0;
 
         List<Customer> customerList = LoginActivity.custList;
         for(int i=0; i<customerList.size(); i++) {
             if(customerList.get(i).getCustomerID().equals(targetCustomerID)){
                 targetAccountBal = customerList.get(i).getAccountBalance();
+                break;
+            }
+        }
+
+        for(int i=0;i<customerList.size();i++){
+            if(customerList.get(i).getCustomerID().equals(customerID)){
+                accountBalance = customerList.get(i).getAccountBalance();
                 break;
             }
         }
@@ -62,12 +72,12 @@ public class Transaction3Activity extends AppCompatActivity {
 
         Transaction transfer = new Transaction();
         Transaction receive = new Transaction();
-        Date date = new Date();
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
 
-        transfer.setAmount((int) amount);
-        receive.setAmount((int) amount);
-        transfer.setTransactionDate(String.valueOf(date));
-        receive.setTransactionDate(String.valueOf(date));
+        transfer.setAmount(amount);
+        receive.setAmount(amount);
+        transfer.setTransactionDate(date);
+        receive.setTransactionDate(date);
         transfer.setCharges(charges);
         receive.setCharges(charges);
         transfer.setType("Transferred");
@@ -161,7 +171,7 @@ public class Transaction3Activity extends AppCompatActivity {
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            Toast.makeText(getApplicationContext(), "Successfully transferred.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Successfully updated customer details.", Toast.LENGTH_LONG).show();
                             finish();
                         }
                     },

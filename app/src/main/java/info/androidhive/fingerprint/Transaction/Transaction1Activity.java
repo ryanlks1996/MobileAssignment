@@ -31,9 +31,9 @@ import info.androidhive.fingerprint.TopupActivity;
 public class Transaction1Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private EditText editTextAmount;
-    private TextView textViewUsername, textViewMessage;
+    private TextView textViewCustomerID, textViewMessage;
     public static final int REQUEST_QRCODE = 1;
-    public static final String USERNAME = "Username from QR Code";
+    public static final String CUSTOMERID = "CustomerID from QR Code";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,7 @@ public class Transaction1Activity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         editTextAmount = (EditText) findViewById(R.id.editTextAmount);
-        textViewUsername = (TextView) findViewById(R.id.textViewUser);
+        textViewCustomerID = (TextView) findViewById(R.id.textViewCustomerID);
         textViewMessage = (TextView) findViewById(R.id.textViewMessage);
 
         if (!isConnected()) {
@@ -75,29 +75,29 @@ public class Transaction1Activity extends AppCompatActivity
     }
     public void fingerPrints(View v){
         //check if username is valid
-        boolean validUsername = false; //false until found username in database
+        boolean validCustomerID = false; //false until found username in database
         boolean validAmount = true; //true until exception occurred
-        String username  = (String) textViewUsername.getText();
+        String customerID  = (String) textViewCustomerID.getText();
         String targetCustomerID = ""; //target customer to transfer
-        double amount = 0;
+        int amount = 0;
 
         List<Customer> customerList = LoginActivity.custList;
         int i;
         for(i=0;i<customerList.size();i++) {
-            if(customerList.get(i).getUsername().equals(username)){
+            if(customerList.get(i).getCustomerID().equals(customerID)){
                 targetCustomerID = customerList.get(i).getCustomerID();
-                validUsername = true;
+                validCustomerID = true;
                 break;
             }
         }
 
         String errorMsg = "";
-        if(!validUsername){
-            errorMsg += " Invalid Username.";
+        if(!validCustomerID){
+            errorMsg += " Invalid Customer ID.";
             textViewMessage.setText(errorMsg);
         }else {
             try {
-                amount = Double.parseDouble(String.valueOf(editTextAmount.getText()));
+                amount = Integer.parseInt(String.valueOf(editTextAmount.getText()));
                 if(amount<1){
                     validAmount = false;
                     errorMsg += " Invalid Amount. Please enter a larger amount";
@@ -107,12 +107,12 @@ public class Transaction1Activity extends AppCompatActivity
                 errorMsg += " Invalid Amount.";
                 textViewMessage.setText(errorMsg);
             }
-            if(validUsername && validAmount){
+            if(validCustomerID && validAmount){
                 //pass variables into pref
                 SharedPreferences.Editor editor = getSharedPreferences(LoginActivity.MY_PREFS_NAME, MODE_PRIVATE).edit();
                 editor.putString("targetCustomerID", targetCustomerID);
                 editor.putInt("accountBalance",customerList.get(i).getAccountBalance());
-                editor.putFloat("amount", (float) amount);
+                editor.putInt("amount", amount);
                 editor.apply();
 
                 //start activity
@@ -182,10 +182,10 @@ public class Transaction1Activity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == REQUEST_QRCODE)
         {
-            String username;
-            username = data.getStringExtra(USERNAME);
+            String customerID;
+            customerID = data.getStringExtra(CUSTOMERID);
 
-            textViewUsername.setText(username);
+            textViewCustomerID.setText(customerID);
         }
     }
 }

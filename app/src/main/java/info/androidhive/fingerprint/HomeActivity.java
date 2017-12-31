@@ -82,8 +82,6 @@ public class HomeActivity extends AppCompatActivity
         } else {
             Toast.makeText(getApplicationContext(), "No network", Toast.LENGTH_LONG).show();
         }
-
-
     }
 
     private boolean isConnected() {
