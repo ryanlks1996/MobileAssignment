@@ -83,4 +83,9 @@
     <string name="charges">Charges (RM): </string>
     <string name="rCustomerID">Customer ID :</string>
     <string name="spacing">                    </string>
+    <string name="about_line1">Transaction Master for Android </string>
+    <string name="about_line2">Version </string>
+    <string name="about_lineVersion">V1.0.0 </string>
+    <string name="about_line3">Transaction Master and the Transaction Master Logo are Trademark of Transaction, Inc. All rights reserved. </string>
+    <string name="about_line4">Terms of Service </string>
 </resources>
