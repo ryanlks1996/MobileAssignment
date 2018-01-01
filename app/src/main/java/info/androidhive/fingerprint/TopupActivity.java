@@ -27,11 +27,16 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.vision.text.Text;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -44,8 +49,9 @@ import info.androidhive.fingerprint.Transaction.Transaction1Activity;
 public class TopupActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private SeekBar seekBarAmount;
-    private TextView textViewAmount;
-    Button btnCheckBalance;
+    private TextView textViewAmount,textViewTopupAccBlc;
+
+    public static List<Customer> custList;
     public static final String MY_PREFS_NAME = "MyPrefsFile";
 
     @Override
@@ -54,9 +60,9 @@ public class TopupActivity extends AppCompatActivity
         setContentView(R.layout.activity_topup);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        custList = new ArrayList<>();
 
-        btnCheckBalance = (Button) findViewById(R.id.buttonCheckAccBlc);
-
+        textViewTopupAccBlc = (TextView) findViewById(R.id.tvTopupAccBlc) ;
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +73,7 @@ public class TopupActivity extends AppCompatActivity
             }
         });
 
+        getCust(getApplicationContext(), getResources().getString(R.string.select_customer_url));
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -237,11 +244,57 @@ public class TopupActivity extends AppCompatActivity
         }
     }
 
+    public void getCust(Context context, String url) {
 
-    public void checkBalance(View v) {
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
+        RequestQueue queue = Volley.newRequestQueue(context);
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(url,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            //Clear list
+                            custList.clear();
 
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject recordResponse = (JSONObject) response.get(i);
+                                String custID = recordResponse.getString("CustomerID");
+                                String name = recordResponse.getString("Name");
+                                int accountBalance = Integer.parseInt(recordResponse.getString("AccountBalance"));
+                                String gender = recordResponse.getString("Gender");
+                                String email = recordResponse.getString("Email");
+                                String username = recordResponse.getString("Username");
+                                String password = recordResponse.getString("Password");
+
+                                Customer cust = new Customer(custID, name, gender, email, username, password, accountBalance);
+                                custList.add(cust);
+                            }
+
+                            displayAccountBalance();
+
+                        } catch (Exception e) {
+                            Toast.makeText(getApplicationContext(), "Error 1:" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Toast.makeText(getApplicationContext(), "Error 2:" + volleyError.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+        queue.add(jsonObjectRequest);
+
+    }
+    private void displayAccountBalance() {
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        String customerID = prefs.getString("customerID", "No value");
+        int accBalance = 0;
+        for (int i = 0; i < custList.size(); i++) {
+            if (customerID.equalsIgnoreCase(custList.get(i).getCustomerID()))
+                accBalance = custList.get(i).getAccountBalance();
+        }
+        textViewTopupAccBlc.setText(getString(R.string.account_balance) +" "+ String.valueOf(accBalance));
     }
 
 
@@ -295,7 +348,11 @@ public class TopupActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        if (id == R.id.action_refreshTopup) {
+            getCust(getApplicationContext(), getResources().getString(R.string.select_customer_url));
 
+            Toast.makeText(getApplicationContext(), "Page Refreshed.", Toast.LENGTH_LONG).show();
+        }
         return super.onOptionsItemSelected(item);
     }
 
