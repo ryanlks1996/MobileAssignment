@@ -82,4 +82,5 @@
     <string name="btn_exit">Exit</string>
     <string name="charges">Charges (RM): </string>
     <string name="rCustomerID">Customer ID :</string>
+    <string name="spacing">                    </string>
 </resources>
