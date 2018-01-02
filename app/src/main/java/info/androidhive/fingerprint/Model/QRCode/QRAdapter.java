@@ -43,7 +43,7 @@ public class QRAdapter extends ArrayAdapter<QRCode> {
         View rowView = inflater.inflate(R.layout.qr_image, parent, false);
 
         ImageView imageView = (ImageView) rowView.findViewById(R.id.imageViewQR);
-        TextView textView = (TextView) rowView.findViewById(R.id.textViewCustomerID);
+       TextView textView = (TextView) rowView.findViewById(R.id.textViewCustomerID);
 
         QRCode imageFile;
         imageFile = getItem(position);
