@@ -56,6 +56,15 @@ public class LoginActivity extends AppCompatActivity {
         readCustomer();
     }
 
+    private boolean isConnected() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+
+    }
+
     public void readCustomer() {
         try {
             // Check availability of network connection.
@@ -117,40 +126,48 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        //Disabled back button
+        /*
         Toast toast = new Toast(getApplicationContext());
         toast.makeText(getApplicationContext(), "Terminating program..", Toast.LENGTH_SHORT);
         Process.killProcess(Process.myPid());
         super.onDestroy();
+        */
     }
 
     public void login(View v) {
         boolean valid = false;
 
-        String username, password;
-        username = String.valueOf(editTextUs.getText());
-        password = String.valueOf(editTextPassword.getText());
-        //Check record in database
-        for (int i = 0; i < custList.size(); i++) {
-            if (custList.get(i).getUsername().equals(username) && custList.get(i).getPassword().equals(password)) {
-                custNo = i;
-                valid = true;
+        if(isConnected) {
+            String username, password;
+            username = String.valueOf(editTextUs.getText());
+            password = String.valueOf(editTextPassword.getText());
+            //Check record in database
+            for (int i = 0; i < custList.size(); i++) {
+                if (custList.get(i).getUsername().equals(username) && custList.get(i).getPassword().equals(password)) {
+                    custNo = i;
+                    valid = true;
+                }
             }
-        }
 
-        if (valid) {
-            Toast.makeText(getApplicationContext(), "Log In Successfully", Toast.LENGTH_SHORT).show();
+            if (valid) {
+                Toast.makeText(getApplicationContext(), "Log In Successfully", Toast.LENGTH_SHORT).show();
 
-            //putting ID and accountBalance into sharepreference
-            SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-            editor.putString("customerID", custList.get(custNo).getCustomerID());
-            editor.putInt("accountBalance", custList.get(custNo).getAccountBalance());
-            editor.apply();
+                //putting ID and accountBalance into sharepreference
+                SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+                editor.putString("customerID", custList.get(custNo).getCustomerID());
+                editor.putInt("accountBalance", custList.get(custNo).getAccountBalance());
+                editor.apply();
 
-            intent = new Intent(this, HomeActivity.class);
-            startActivity(intent);
-        } else {
-            Toast.makeText(getApplicationContext(), "Invalid Username or Password!", Toast.LENGTH_SHORT).show();
+                intent = new Intent(this, HomeActivity.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(getApplicationContext(), "Invalid Username or Password!", Toast.LENGTH_SHORT).show();
 
+            }
+        }else{
+            Toast toast = new Toast(getApplicationContext());
+            toast.makeText(getApplicationContext(), "No Network Connection.", Toast.LENGTH_SHORT).show();
         }
     }
 

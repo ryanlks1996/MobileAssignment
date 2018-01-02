@@ -72,7 +72,6 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         custList = new ArrayList<>();
         if (isConnected()) {
-
             SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
             customerIDSession = prefs.getString("customerID", "No value"); //No value is default value
 

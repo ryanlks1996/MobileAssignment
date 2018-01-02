@@ -88,4 +88,5 @@
     <string name="about_lineVersion">V1.0.0 </string>
     <string name="about_line3">Transaction Master and the Transaction Master Logo are Trademark of Transaction, Inc. All rights reserved. </string>
     <string name="about_line4">Terms of Service </string>
+    <string name="customerID">Customer ID</string>
 </resources>

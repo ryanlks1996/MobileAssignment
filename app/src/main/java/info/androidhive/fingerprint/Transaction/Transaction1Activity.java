@@ -30,8 +30,8 @@ import info.androidhive.fingerprint.TopupActivity;
 
 public class Transaction1Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private EditText editTextAmount;
-    private TextView textViewCustomerID, textViewMessage;
+    private EditText editTextAmount, editTextCustomerID;
+    private TextView textViewMessage;
     public static final int REQUEST_QRCODE = 1;
     public static final String CUSTOMERID = "CustomerID from QR Code";
 
@@ -52,7 +52,7 @@ public class Transaction1Activity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         editTextAmount = (EditText) findViewById(R.id.editTextAmount);
-        textViewCustomerID = (TextView) findViewById(R.id.textViewCustomerID);
+        editTextCustomerID = (EditText) findViewById(R.id.editTextCustomerID);
         textViewMessage = (TextView) findViewById(R.id.textViewMessage);
 
         if (!isConnected()) {
@@ -77,7 +77,7 @@ public class Transaction1Activity extends AppCompatActivity
         //check if username is valid
         boolean validCustomerID = false; //false until found username in database
         boolean validAmount = true; //true until exception occurred
-        String customerID  = (String) textViewCustomerID.getText();
+        String customerID  = String.valueOf(editTextCustomerID.getText());
         String targetCustomerID = ""; //target customer to transfer
         int amount = 0;
 
@@ -185,7 +185,7 @@ public class Transaction1Activity extends AppCompatActivity
             String customerID;
             customerID = data.getStringExtra(CUSTOMERID);
 
-            textViewCustomerID.setText(customerID);
+            editTextCustomerID.setText(customerID);
         }
     }
 }
