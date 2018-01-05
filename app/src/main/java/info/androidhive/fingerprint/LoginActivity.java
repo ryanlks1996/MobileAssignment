@@ -136,6 +136,7 @@ public class LoginActivity extends AppCompatActivity {
         boolean valid = false;
 
         if(isConnected) {
+
             String username, password;
             username = String.valueOf(editTextUs.getText());
             password = String.valueOf(editTextPassword.getText());
@@ -182,6 +183,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        readCustomer();
         super.onResume();
     }
 

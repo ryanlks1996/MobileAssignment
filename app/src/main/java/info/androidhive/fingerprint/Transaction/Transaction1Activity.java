@@ -132,7 +132,7 @@ public class Transaction1Activity extends AppCompatActivity
                 editor.apply();
 
                 //start activity
-                Intent intent = new Intent(this,Transaction3Activity.class);
+                Intent intent = new Intent(this,FingerprintActivity.class);
                 startActivity(intent);
             }
         }
