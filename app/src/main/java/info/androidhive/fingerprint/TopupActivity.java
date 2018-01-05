@@ -1,6 +1,8 @@
 package info.androidhive.fingerprint;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -69,7 +71,27 @@ public class TopupActivity extends AppCompatActivity
             public void onClick(View view) {
                 //add top up action
 
-                topupAction();
+
+                AlertDialog.Builder altdial = new AlertDialog.Builder(TopupActivity.this);
+                altdial.setMessage("Confirm to topup? Amount will be deducted from credit card").setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                topupAction();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+
+                AlertDialog alert = altdial.create();
+                alert.setTitle("Topup Confirmation");
+                alert.show();
+
+
             }
         });
 
