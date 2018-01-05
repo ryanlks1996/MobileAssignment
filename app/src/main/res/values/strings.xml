@@ -4,12 +4,12 @@
     //register page
     <string name="rUsername">Username : </string>
     <string name="rGender">Gender : </string>
-    <string name="rEmail">CreditCard : </string>
+    <string name="rCreditCard">CreditCard : </string>
     <string name="rPassword">Password : </string>
     <string name="rCfPassword">Confirm Password : </string>
     <string name="rFingerP">Fingerprint : </string>
     <string name="tAmount">Amount :</string>
-    <string name="email">Email</string>
+    <string name="creditCard">Credit Card</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
 
