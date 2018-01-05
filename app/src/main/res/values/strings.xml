@@ -4,7 +4,7 @@
     //register page
     <string name="rUsername">Username : </string>
     <string name="rGender">Gender : </string>
-    <string name="rEmail">Email : </string>
+    <string name="rEmail">CreditCard : </string>
     <string name="rPassword">Password : </string>
     <string name="rCfPassword">Confirm Password : </string>
     <string name="rFingerP">Fingerprint : </string>

@@ -173,7 +173,7 @@ public class Transaction3Activity extends AppCompatActivity {
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            Toast.makeText(getApplicationContext(), "Successfully updated customer details.", Toast.LENGTH_LONG).show();
+                         //   Toast.makeText(getApplicationContext(), "Successfully updated customer details.", Toast.LENGTH_LONG).show();
                             finish();
                         }
                     },

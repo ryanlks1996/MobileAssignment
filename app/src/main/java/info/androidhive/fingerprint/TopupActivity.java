@@ -165,7 +165,7 @@ public class TopupActivity extends AppCompatActivity
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            Toast.makeText(getApplicationContext(), "Successfully topup.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Successfully topup. Amount has been deducted from credit card", Toast.LENGTH_LONG).show();
                             finish();
                         }
                     },

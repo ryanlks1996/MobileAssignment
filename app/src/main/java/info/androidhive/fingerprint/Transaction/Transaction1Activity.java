@@ -34,6 +34,7 @@ public class Transaction1Activity extends AppCompatActivity
     private TextView textViewMessage;
     public static final int REQUEST_QRCODE = 1;
     public static final String CUSTOMERID = "CustomerID from QR Code";
+    public static final String MY_PREFS_NAME = "MyPrefsFile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +82,7 @@ public class Transaction1Activity extends AppCompatActivity
         String targetCustomerID = ""; //target customer to transfer
         int amount = 0;
 
-        List<Customer> customerList = LoginActivity.custList;
+        List<Customer> customerList = HomeActivity.custList;
         int i;
         for(i=0;i<customerList.size();i++) {
             if(customerList.get(i).getCustomerID().equals(customerID)){
@@ -89,6 +90,16 @@ public class Transaction1Activity extends AppCompatActivity
                 validCustomerID = true;
                 break;
             }
+        }
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        String fromCustomerID = prefs.getString("customerID", "No value");
+        int accBalance = 0;
+        for (int a = 0; a < customerList.size(); a++) {
+            if (fromCustomerID.equalsIgnoreCase(customerList.get(a).getCustomerID()))
+                accBalance = customerList.get(a).getAccountBalance();
+        }
+        if(customerID.equals(fromCustomerID)){
+            validCustomerID=false;
         }
 
         String errorMsg = "";
@@ -101,6 +112,11 @@ public class Transaction1Activity extends AppCompatActivity
                 if(amount<1){
                     validAmount = false;
                     errorMsg += " Invalid Amount. Please enter a larger amount";
+                    textViewMessage.setText(errorMsg);
+                }else if(accBalance < amount+1){
+                    validAmount = false;
+                    errorMsg += " Insufficient Balance. Please topup.";
+                    textViewMessage.setText(errorMsg);
                 }
             } catch (Exception e) {
                 validAmount = false;
@@ -180,12 +196,11 @@ public class Transaction1Activity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUEST_QRCODE)
-        {
+        if (requestCode == REQUEST_QRCODE && resultCode != RESULT_CANCELED) {
             String customerID;
             customerID = data.getStringExtra(CUSTOMERID);
-
             editTextCustomerID.setText(customerID);
         }
     }
+
 }

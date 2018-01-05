@@ -170,21 +170,13 @@ public class Register1Activity extends AppCompatActivity {
                     email = editTextEmail.getText().toString();
                     boolean emailRepeat = false;
 
-                    //check all emails in database
-                    for (int i = 0; i < custList.size(); i++) {
-                        if (email.equals(custList.get(i).getEmail())) {
-                            emailRepeat = true;
-                            break;
-                        }
-                    }
+
                     if (email.isEmpty() || email.equals("")) {
-                        errorMsg = "Please enter email.";
-                    } else if (email.length() > 25) {
-                        errorMsg = "Invalid email length. (Too long)";
+                        errorMsg = "Please enter credit card number.";
+                    } else if (email.length() != 16) {
+                        errorMsg = "Invalid credit card number";
                     } else if (email.contains(" ")) {
-                        errorMsg = "Email shouldn't contains space(s)";
-                    } else if (emailRepeat) {
-                        errorMsg = "This email is already registered.";
+                        errorMsg = "Credit card number shouldn't contains space(s)";
                     } else {
                         password = editTextPw.getText().toString();
                         confirmPw = editTextCfPw.getText().toString();
