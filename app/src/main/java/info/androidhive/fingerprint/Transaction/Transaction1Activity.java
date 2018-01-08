@@ -18,6 +18,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.List;
 
 import info.androidhive.fingerprint.AboutActivity;
@@ -31,10 +40,11 @@ import info.androidhive.fingerprint.TopupActivity;
 public class Transaction1Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private EditText editTextAmount, editTextCustomerID;
-    private TextView textViewMessage;
+    private TextView textViewMessage, textViewBalance;
     public static final int REQUEST_QRCODE = 1;
     public static final String CUSTOMERID = "CustomerID from QR Code";
     public static final String MY_PREFS_NAME = "MyPrefsFile";
+    public static List<Customer> custList = HomeActivity.custList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +65,24 @@ public class Transaction1Activity extends AppCompatActivity
         editTextAmount = (EditText) findViewById(R.id.editTextAmount);
         editTextCustomerID = (EditText) findViewById(R.id.editTextCustomerID);
         textViewMessage = (TextView) findViewById(R.id.textViewMessage);
+        textViewBalance = (TextView) findViewById(R.id.textViewBalance);
 
         if (!isConnected()) {
             Toast.makeText(getApplicationContext(), "No network", Toast.LENGTH_LONG).show();
         }
+
+        displayAccountBalance();
+    }
+
+    private void displayAccountBalance() {
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        String customerID = prefs.getString("customerID", "No value");
+        int accBalance = 0;
+        for (int i = 0; i < custList.size(); i++) {
+            if (customerID.equalsIgnoreCase(custList.get(i).getCustomerID()))
+                accBalance = custList.get(i).getAccountBalance();
+        }
+        textViewBalance.setText(String.valueOf(accBalance));
     }
 
     private boolean isConnected() {
