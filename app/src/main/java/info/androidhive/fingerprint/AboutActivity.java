@@ -1,6 +1,7 @@
 package info.androidhive.fingerprint;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -8,8 +9,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import info.androidhive.fingerprint.Transaction.Transaction1Activity;
 
@@ -31,6 +34,18 @@ public class AboutActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        getVersion();
+    }
+
+    public void getVersion(){
+
+        String androidOS = Build.VERSION.RELEASE;
+
+
+        TextView tvVersion;
+        tvVersion = (TextView) findViewById(R.id.tvVersion);
+        tvVersion.setText(androidOS);
+
     }
 
     @Override
