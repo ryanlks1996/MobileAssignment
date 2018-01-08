@@ -12,6 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import java.util.List;
 
+import info.androidhive.fingerprint.LoginActivity;
+import info.androidhive.fingerprint.Model.Customer.Customer;
 import info.androidhive.fingerprint.Model.Transaction.Transaction;
 import info.androidhive.fingerprint.R;
 
