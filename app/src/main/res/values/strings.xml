@@ -89,4 +89,7 @@
     <string name="about_line3">Transaction Master and the Transaction Master Logo are Trademark of Transaction, Inc. All rights reserved. </string>
     <string name="about_line4">Terms of Service </string>
     <string name="customerID">Customer ID</string>
+    <string name="topupDesc1">TopUp Amount: </string>
+    <string name="topupDesc2">Maximum TopUp Amount is RM1000</string>
+    <string name="topUpDesc3">Drag this bar to adjust the amount</string>
 </resources>
