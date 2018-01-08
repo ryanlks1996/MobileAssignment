@@ -92,4 +92,14 @@
     <string name="topupDesc1">TopUp Amount: </string>
     <string name="topupDesc2">Maximum TopUp Amount is RM1000</string>
     <string name="topUpDesc3">Drag this bar to adjust the amount</string>
+    <string name="FAQLink">
+        <a href="http://www.google.com">FAQ</a>
+    </string>
+    <string name="TOSLink">
+        <a href="http://www.google.com">Terms of Service</a>
+    </string>
+    <string name="contactNo">ContactNo: 03-40401231</string>
+    <string name="WebLink1">
+        <a href="http://www.google.com">www.TransactionMaster.com</a>
+    </string>
 </resources>

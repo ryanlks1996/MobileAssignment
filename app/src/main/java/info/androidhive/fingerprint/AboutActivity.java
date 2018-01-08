@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,7 +43,15 @@ public class AboutActivity extends AppCompatActivity
         String androidOS = Build.VERSION.RELEASE;
 
 
-        TextView tvVersion;
+        TextView tvVersion,textViewTOS, textViewFAQ, textViewWeblink;
+        textViewTOS = (TextView) findViewById(R.id.textViewTOS);
+        textViewFAQ = (TextView) findViewById(R.id.textViewFAQ);
+        textViewWeblink = (TextView) findViewById(R.id.textViewWebLink);
+
+        textViewTOS.setMovementMethod(LinkMovementMethod.getInstance());
+        textViewFAQ.setMovementMethod(LinkMovementMethod.getInstance());
+        textViewWeblink.setMovementMethod(LinkMovementMethod.getInstance());
+
         tvVersion = (TextView) findViewById(R.id.tvVersion);
         tvVersion.setText(androidOS);
 
